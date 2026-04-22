@@ -2,21 +2,22 @@ body {
     font-size: 20px;
 	font-family: Ubuntu;
 	margin: 0;
-	background-color: #F0D4AB;
+	background-color: #f1e5d3;
 	color: black;
 }	
 
-.topnav {
+.menuband {
 	overflow: hidden;
-	background-color: #cc8c33;
+	background-color: #f1e5d3;
 	text-align: right;
-	border-bottom: 6px solid #145229;
+	border-bottom: 6px solid #000000;
 	word-spacing: 5px;
 	position: fixed;
 	width: 100%;
 	display: block;
 	color: black;
 	text-decoration: none;
+	box-shadow: 5px;
 }
 
 /*.Leiste {
@@ -28,13 +29,13 @@ body {
 }
 */
 
-.topnav a {
+.menuband a {
 	color: black;
 }
-.topnav a:hover {
+.menuband a:hover {
 	color: #145229;
 }
-/*#home {
+/*#logo {
 	float: left;
 	padding-left: 20px;
 }*/
