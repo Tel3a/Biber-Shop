@@ -1,4 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+</head>
+<body>
+  <h1>Test funktioniert</h1>
+</body>
+</html>
+
+
+
+<!-- <!doctype html>
 <html>
 
 <head>
