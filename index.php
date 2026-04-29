@@ -7,12 +7,12 @@
 </head>
 
 <body> 
-<div class="menuband">
+<!-- <div class="menuband">
 	<div id="logo"> </div>
 	<br>
 
 </div>
-
+ -->
 <div class="pfeil"> <a href="startseite.php"> <b>↑</b> </a></div>
    
    <h1>Willkommen auf diesem Webshop!</h1>
