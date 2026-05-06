@@ -32,7 +32,7 @@ CREATE TABLE `Produkte` (
   `PName` varchar(100) NOT NULL,
   `PBeschreibung` varchar(100) NOT NULL,
   `PPreis` int NOT NULL,
-  `PBestand` int NOT NULL,
+  `PBestand` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -65,6 +65,38 @@ ALTER TABLE `Produkte`
 ALTER TABLE `Produkte`
   MODIFY `PID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
+
+-- Tabelle für Kunden
+CREATE TABLE `Kunden`(
+  `KID`int NOT NULL,
+  `Username` varchar(100) NOT NULL,
+  `Passwort` varchar(100)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `Kunden` (`KID`, `Username`, `Passwort`) VALUES
+(001, `kunde`, `pwort`)
+
+ALTER TABLE `Kunden`
+  ADD PRIMARY KEY (`KID`)
+
+
+-- Tabelle Bestellungen
+
+CREATE TABLE `Bestellungen`(
+  `BID` int NOT NULL,
+  `KID` int NOT NULL,
+  `BPreis`int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `Bestellungen`
+  ADD PRIMARY KEY (`BID`)
+  ADD FOREIGN KEY (`KID`)
+  
+
+-- Tabelle Warenkorb
+CREATE TABLE `Warenkorb`(
+  `WID` int NOT NULL,
+  )
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
