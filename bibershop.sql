@@ -40,12 +40,12 @@ CREATE TABLE `Produkte` (
 --
 
 INSERT INTO `Produkte` (`PID`, `PName`, `PBeschreibung`, `PPreis`, `PBestand` ) VALUES
-(1, 'Kamm', 'Kamm für Biber', 2, 3),
-(2, 'Bürste', 'Bürste für Biber', 2, 3),
-(3, 'Fellpflege', 'shampoo für Biber', 2, 3),
-(4, 'Zahnfeile', 'kommt noch', 2, 3),
-(5, 'Regenjacke', 'um ueber Wasser trocken zu bleiben, damit das Fell nicht nass wird', 2, 3),
-(6, 'Tauchbrille', 'fuer die kurz- und weitsichtigen Biber', 2, 3);
+(001, 'Kamm', 'Kamm für Biber', 2, 3),
+(002, 'Bürste', 'Bürste für Biber', 2, 3),
+(003, 'Fellpflege', 'shampoo für Biber', 2, 3),
+(004, 'Zahnfeile', 'kommt noch', 2, 3),
+(005, 'Regenjacke', 'um ueber Wasser trocken zu bleiben, damit das Fell nicht nass wird', 2, 3),
+(006, 'Tauchbrille', 'fuer die kurz- und weitsichtigen Biber', 2, 3);
 
 --
 -- Indizes der exportierten Tabellen
@@ -94,9 +94,26 @@ ALTER TABLE `Bestellungen`
   
 
 -- Tabelle Warenkorb
-CREATE TABLE `Warenkorb`(
+CREATE TABLE `KWarenkorb`(
   `WID` int NOT NULL,
-  )
+  `KID` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  
+ALTER TABLE `KWarenkorb`
+  ADD PRIMARY KEY (`WID`)
+  ADD FOREIGN KEY (`KID`)
+
+-- Tabelle Bestellen
+CREATE TABLE `Warenkorbinhalt`(
+  `WPosition` int NOT NULL,
+  `WID` int NOT NULL,
+  `PID` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `Warenkorbinhalt`
+  ADD PRIMARY KEY (`WPosition`)
+  ADD FOREIGN KEY (`WID`)
+  ADD FOREIGN KEY (`PID`)
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
