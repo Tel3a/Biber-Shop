@@ -12,7 +12,9 @@
 
 
 
-
+<div class="item" id="footer"> 
+			<div id="footerinhalt"><br>© 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj <br> <br> 	<a href="Impressum.html">IMPRESSUM</a> <br>  </div>
+</div>
 
 
 

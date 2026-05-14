@@ -77,7 +77,7 @@ INSERT INTO `Kunden` (`KID`, `Username`, `Passwort`) VALUES
 (001, `kunde`, `pwort`)
 
 ALTER TABLE `Kunden`
-  ADD PRIMARY KEY (`KID`)
+  ADD PRIMARY KEY (`KID`);
 
 
 -- Tabelle Bestellungen
@@ -89,8 +89,8 @@ CREATE TABLE `Bestellungen`(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `Bestellungen`
-  ADD PRIMARY KEY (`BID`)
-  ADD FOREIGN KEY (`KID`)
+  ADD PRIMARY KEY (`BID`),
+  ADD FOREIGN KEY (`KID`);
   
 
 -- Tabelle Warenkorb
@@ -100,8 +100,8 @@ CREATE TABLE `KWarenkorb`(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
   
 ALTER TABLE `KWarenkorb`
-  ADD PRIMARY KEY (`WID`)
-  ADD FOREIGN KEY (`KID`)
+  ADD PRIMARY KEY (`WID`),
+  ADD FOREIGN KEY (`KID`);
 
 -- Tabelle Bestellen
 CREATE TABLE `Warenkorbinhalt`(
@@ -111,11 +111,15 @@ CREATE TABLE `Warenkorbinhalt`(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `Warenkorbinhalt`
-  ADD PRIMARY KEY (`WPosition`)
-  ADD FOREIGN KEY (`WID`)
-  ADD FOREIGN KEY (`PID`)
+  ADD PRIMARY KEY (`WPosition`),
+  ADD FOREIGN KEY (`WID`),
+  ADD FOREIGN KEY (`PID`);
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+Jetzt
+
+Emoji, Sticker oder GIF hinzufügen
+
