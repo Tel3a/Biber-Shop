@@ -11,18 +11,33 @@
 <div class ="container">
     <div class="form-box" id="login-form">
 	    <?php
-            $texttext = "Hallo! ";
+            require 'db_config.php';
+            session_start();
             $error = "";
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-                    $error = "<h5>" . "ungültige E-mail" . "</h5>";
+                $email = $_POST["email"] ?? "";
+                $passwort = $_POST["passwort"] ?? "";
+
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $error = "<h5>Ungültige E-Mail</h5>";
                 }
-                elseif (empty($_POST["passwort"])) {
-                    $error = "<h5>" . "ungültiges Passwort" . "</h5>";
-                }
-                else {
-                    header("Location: index.php");
-                    exit();
+                elseif (empty($passwort)) {
+                    $error = "<h5>Ungültiges Passwort</h5>";
+                } else {
+                    $obrichtigerUser = $conn->prepare('SELECT KID, Passwort FROM Kunden WHERE Username = ?'); //prepare schützt vor Hacking
+                    $obrichtigerUser->bind_param('s', $email); // bind_param schützt vor Hacking
+                    $obrichtigerUser->execute();
+                    $row = $obrichtigerUser->get_result()->fetch_assoc();
+
+                    if ($row && password_verify($passwort, $row['Passwort'])) {
+                        $_SESSION['KID'] = $row['KID'];
+                        $_SESSION['email'] = $email;
+                        header('Location: index.php');
+                        exit();
+                    } else {
+                        $error = "<h5>E-Mail oder Passwort falsch</h5>";
+                    }
+                    $obrichtigerUser->close();
                 }
             }
         ?>
@@ -39,6 +54,7 @@
     </div>
     
 </div>
+
 
 <!--
 <div class="item" id="footer"> 
