@@ -12,7 +12,7 @@
  <div class="menuband">
 	<a id="logo" href="index.php"><img src="house.png" alt="Startseite" ></a>
 	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
-	<a href="login.php">Login</a> </div>
+	<a href="login.php">Konto</a> </div>
 </div>
 
 
