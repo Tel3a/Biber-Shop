@@ -7,34 +7,70 @@
 </head>
 
 <body> 
-	
+
+
  <div class="menuband">
-	<div id="logo"> 
-		<a href="index.php"><img src="house.png" alt="Startseite" ></a>
-	</div>
-	<a class="menuoptionen" href="kaufen.php">Kaufen</a>
-	<a class="menuoptionen" href="login.php">Login</a>
+	<a id="logo" href="index.php"><img src="house.png" alt="Startseite" ></a>
+	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
+	<a href="login.php">Login</a> </div>
+</div>
+
+<div class="seiteninhalt">
+
+
+
+
+<!--
+ was ist eine sektion?
+<section class="product-gallery">
+  <div class="filters">
+    <button data-filter="all">Alle</button>
+    <button data-filter="shirts">Shirts</button>
+    <button data-filter="shoes">Schuhe</button>
+  </div>
+
+  <div class="grid" id="productGrid">
+<?php
+$products = [
+  ["name" => "T-Shirt", "category" => "shirts", "image" => "img/shirt1.jpg", "price" => "19,90 €"],
+  ["name" => "Sneaker", "category" => "shoes", "image" => "img/shoe1.jpg", "price" => "49,90 €"]
+];
+
+foreach ($products as $p) {
+  echo '<article class="product-boxen" data-category="'.$p["category"].'">';
+  echo '<a href="'.$p["image"].'" class="open-lightbox">';
+  echo '<img src="'.$p["image"].'" alt="'.$p["name"].'">';
+  echo '</a>';
+  echo '<h3>'.$p["name"].'</h3>';
+  echo '<p>'.$p["price"].'</p>';
+  echo '</article>';
+}
+?>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button id="closeLightbox">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+-->
+
+
+
+
+<div id="produktgallerie"> 
+	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
+	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
+	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
+	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
+	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
+	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
 </div>
 
 
 
 
- 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.  
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.  
-
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.  
-
-Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. LoremLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.  
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.  
-
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.  
-
-Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem
-
-
+</div>
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="script.js"></script>

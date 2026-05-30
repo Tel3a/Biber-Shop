@@ -10,11 +10,9 @@
 <body> 
 
  <div class="menuband">
-	<div id="logo"> 
-		<a href="index.php"><img src="house.png" alt="Startseite" ></a>
-	</div>
-	<a class="menuoptionen" href="kaufen.php">Kaufen</a>
-	<a class="menuoptionen" href="login.php">Login</a>
+	<a id="logo" href="index.php"><img src="house.png" alt="Startseite" ></a>
+	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
+	<a href="login.php">Login</a> </div>
 </div>
 
 
@@ -22,15 +20,13 @@
 
 <div class="seiteninhalt"> 
 
-	<div class="gallerie"
+	<div class="fotogallerie"
 	data-flickity-options='{ "wrapAround": true }'>
 	<div class="galleriefoto"><p class="cursor typewriter-animation">Hallo einsamer Biber! Schön, dass du da bist! </p> </div>
-	<div class="galleriefoto">
-		  
-	</div>
-	<div class="galleriefoto"></div>
-	<div class="galleriefoto"></div>
-	<div class="galleriefoto"></div>
+	<div class="galleriefoto"><img src="shampoo.jpg" alt="photo1"></div>
+	<div class="galleriefoto"><img src="shampoo2.jpg" alt="photo1"></div>
+	<div class="galleriefoto"><img src="shampoo3.jpg" alt="photo1"></div>
+	
 	</div>
 	
 

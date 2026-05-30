@@ -8,15 +8,14 @@
 
 <body> 
  <div class="menuband">
-	<div id="logo"> 
-		<a href="index.php"><img src="house.png" alt="Startseite" ></a>
-	</div>
-	<a class="menuoptionen" href="kaufen.php">Kaufen</a>
-	<a class="menuoptionen" href="login.php">Login</a>
+	<a id="logo" href="index.php"><img src="house.png" alt="Startseite" ></a>
+	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
+	<a href="login.php">Login</a> </div>
 </div>
 
+<div class="seiteninhalt">
 
-<div class="pfeil"> <a href="login.php"> <b>↑</b> </a></div>
+
 
 <div class="login">
 	<?php
@@ -38,13 +37,16 @@
  
 	<h1>Login</h1>
 	<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method ="post">
-        Name: <input type="text" name="name"><br>
-        E-mail: <input type="text" name="email"><br>
-        <?php echo $error ?>
+        E-mail <br><input type="text" name="email"><br>
+        Benutzername <br><input type="text" name="name"><br>
+        Passowort <br><input type="password" name="passwort"><br>
+        <?php echo $error ?> <br>
         <input type="submit">
     </form>
 </div>
-          
+
+</div>         
+
 <div class="item" id="footer"> 
 			<div id="footerinhalt"><br>© 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj <br> <br> 	<a href="Impressum.html">IMPRESSUM</a> <br>  </div>
 </div>

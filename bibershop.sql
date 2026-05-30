@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `Kunden`(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `Kunden` (`KID`, `Username`, `Passwort`) VALUES
-(001, `kunde`, `pwort`)
+(001, `kunde`, `pwort`);
 
 ALTER TABLE `Kunden`
   ADD PRIMARY KEY (`KID`);
