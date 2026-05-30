@@ -9,13 +9,10 @@ body {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 }
 
 .seiteninhalt {
-padding-top: 115px
-
+	padding-top: 115px;
 }
 
 a {
@@ -107,7 +104,7 @@ format("opentype");
 	border-top: 4px solid #000000;
 	margin-top: auto;
 	min-height: 220px;
-
+	min-width: 100%;
 }
 
 #footerinhalt {
@@ -179,14 +176,6 @@ format("opentype");
   color:#e7e0d5
 
 }
-
-
-
-
-
-
-
-
 
 /*.product-gallery {
   max-width: 1200px;
