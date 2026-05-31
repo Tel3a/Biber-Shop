@@ -31,12 +31,6 @@ if ($widRes->num_rows > 0) {
     $delStmt->execute();
     $delStmt->close();
 
-    // Optional: Warenkorb-Tabelle selbst auch leeren (falls du nur 1 Wareneintrag pro Kunde hast)
-    // Wenn du den Warenkorb mit WID behalten willst, lass diesen Teil weg:
-    $delWk = $conn->prepare("DELETE FROM warenkorb WHERE WID = ?");
-    $delWk->bind_param("i", $WID);
-    $delWk->execute();
-    $delWk->close();
 }
 
 $widStmt->close();
@@ -46,3 +40,4 @@ $_SESSION['warenkorb'] = [];
 
 header("Location: warenkorb.php");
 exit;
+?>
