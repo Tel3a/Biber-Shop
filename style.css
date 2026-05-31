@@ -10,11 +10,8 @@ body {
 	flex-wrap: wrap;
 	flex-direction: column;
 }
-h1, h2, h3, h4 {
-	font-weight: normal;
-	text-align: center;
-	margin-bottom: 10px;	
-}
+
+
 
 .seiteninhalt {
 	padding-top: 115px;
@@ -100,23 +97,24 @@ format("opentype");
 }
 
 #footer {
-	align-items: left;
 	background-color: #1d1a1a;
 	color: #ffffff;
-	justify-content: left;
 	border-top: 4px solid #000000;
 	margin-top: auto;
 	min-height: 220px;
 	min-width: 100%;
 	bottom: 0;
-}
-
-#footerinhalt {
-	margin-left: 20px;
-	margin-top: 30px;
-	margin-bottom: 30px;
+	padding: 20px;
 	display: flex;
 	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: space-between;
+
+}
+
+.footerinhalt {
+	text-align: left;
+
 }
 
 
@@ -315,7 +313,7 @@ button {
 button:hover {
 	background: #6884d3
 }
-p, h5 {
+button p, h5 {
 	font-size: 14.5px;
 	text-align: center;
 	margin-bottom: 10px;
