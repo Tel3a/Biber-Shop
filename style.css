@@ -293,7 +293,18 @@ p a {
 p a:hover {
 	text-decoration: underline;
 }
+span {
+	color: #7494ec;
+}
+.box p{
+	font-size: 22px;
 
+}
+.box button {
+	display: block;
+	width: 300px;
+	margin: 0, auto;
+}
 h5 {
 	color: red;
 }
