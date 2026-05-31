@@ -7,6 +7,9 @@
 </head>
 
 <body> 
+<?php include 'header.php'; ?>
+
+
 
 <div class ="container">
     <div class="form-box" id="login-form">
@@ -57,11 +60,7 @@
 </div>
 
 
-<!--
-<div class="item" id="footer"> 
-			<div id="footerinhalt"><br>© 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj <br> <br> 	<a href="Impressum.html">IMPRESSUM</a> <br>  </div>
-</div>
--->
+<?php include 'footer.php'; ?>
 
 </body>
 </html>
