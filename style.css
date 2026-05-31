@@ -10,14 +10,9 @@ body {
 	flex-direction: column;
 }
 h1, h2, h3, h4 {
-	
-
 	font-weight: normal;
-	
 	text-align: center;
-	
-	margin-bottom: 10px;
-	
+	margin-bottom: 10px;	
 }
 
 .seiteninhalt {
@@ -34,7 +29,7 @@ font-family: Lexend Zetta;
 src: url('LexendZetta-VariableFont_wght.ttf')
 format("opentype");
 }
-.menuband {
+.header {
 	background-color: #ffffff;
 	text-align: right;
 	border-bottom: 1px solid #c5c5c5;
@@ -59,7 +54,7 @@ format("opentype");
 	text-align: right;
 
 }
-.menuband a:hover {
+.header a:hover {
 	opacity: 0.6;
 	
 }
@@ -181,7 +176,7 @@ format("opentype");
 	justify-content: center;
 	counter-increment: galleriefoto;
 	color:#e7e0d5;
-	background-color: #000000;
+	background-color: #9a6c6c;
 	object-fit: contain;
 }
 
@@ -339,7 +334,6 @@ span {
 .box p{
 	font-size: 22px;
 	align-items: center;
-
 }
 .box button {
 	display: block;
