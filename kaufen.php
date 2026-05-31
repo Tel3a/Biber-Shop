@@ -55,20 +55,44 @@ foreach ($products as $p) {
 </div>
 -->
 
-
-
-
 <div id="produktgallerie"> 
-	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
+    <?php 
+        require 'db_config.php';
+        $servername = "localhost";
+        $username = "root";
+        $passwort = "";
+        $datenbank = "bibershop";
+
+        $conn = mysqli_connect($servername, $username, $passwort, $datenbank);
+        if($conn->connect_error) {
+            die ("es funktioniert nicht..." . $conn->connect_error);
+        }
+        /*echo "connected" . "<br>";*/
+
+        $sql = "SELECT * FROM produkte";
+        $result = $conn->query($sql);
+
+        /* für jedes Produkt eine Box mit Bild, Name und Warenkorb Button */
+        while ($i = $result->fetch_assoc()):
+            ?>
+            <a class="boxen" href="produktdetails.php?pid=<?= $i['PID'] ?>">
+            <img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="kein Bild verfügbar">
+            <p><?= htmlspecialchars($i['Pname']) ?></p>
+            <button> In den Warenkorb</button>
+            </a>
+    <?php endwhile; 
+        mysqli_close($conn);
+    ?>
+</div>
+<!--	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1 <br> <button> 
+      In den Warenkorb</button> </a>
 	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
 	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
 	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
 	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
 	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
 </div>
-
-
-
+  -->
 
 </div>
 
