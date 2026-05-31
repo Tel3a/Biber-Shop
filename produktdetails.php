@@ -27,6 +27,7 @@
 
 
 
+</div>
 
 
 <?php 
@@ -42,34 +43,38 @@
         }
         /*echo "connected" . "<br>";*/
 
-		$pid = isset($_GET['pid']) ? (int)$_GET['pid'] : 0;
-		if ($pid > 0) {
+		$PID = isset($_GET['PID']) ? (int)$_GET['PID'] : 0;
+		if ($PID > 0) {
 			$sql = "SELECT * FROM produkte WHERE PID = ?";
 			$stmt = $conn->prepare($sql);
-			$stmt->bind_param("i", $pid);
+			$stmt->bind_param("i", $PID);
 			$stmt->execute();
 			$result = $stmt->get_result();
 }
 
 
        
-		while ($i = $result->fetch_assoc()):
-			?>
-			<div class="produktdetails">
-				<div class="detailfotos"> 
-					<img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="<?= htmlspecialchars($i['Pname']) ?>">
-					<img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="<?= htmlspecialchars($i['Pname']) ?>">
-					<img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="<?= htmlspecialchars($i['Pname']) ?>">
-				</div> 
+		 while ($i = $result->fetch_assoc()): ?>
+    <div class="produktdetails">
+        <div class="detailfotos">
+            <img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="<?= htmlspecialchars($i['Pname']) ?>">
+        </div>
 
-				<div class="produktinfos">
-					<h4><?= htmlspecialchars($i['Pname']) ?></h4> 
-					<?= htmlspecialchars($i['Ppreis']) ?> € <br><br>
-					<button type="submit">In den Warenkorb</button>
-					<?= htmlspecialchars($i['Pbeschreibung']) ?>
-				</div>
-			</div>
-	<?php endwhile; 
+        <div class="produktinfos">
+            <h4><?= htmlspecialchars($i['Pname']) ?></h4>
+            <div class="produktpreis"><?= htmlspecialchars($i['Ppreis']) ?> €</div>
+            <p><?= htmlspecialchars($i['Pbeschreibung']) ?></p>
+
+            <form method="POST" action="pinwarenkorb.php">
+                <input type="hidden" name="PID" value="<?= (int)$i['PID'] ?>">
+                <button type="submit">In den Warenkorb</button>
+            </form>
+        </div>
+    </div>
+<?php endwhile; ?>
+
+<p><a href="warenkorb.php">Warenkorb ansehen</a></p>
+	<?php 
         mysqli_close($conn);
     ?>
 
@@ -78,12 +83,6 @@
 
 
 <?php include 'footer.php'; ?>
-
-
-
-
-
-
 
 </body>
 </html>
