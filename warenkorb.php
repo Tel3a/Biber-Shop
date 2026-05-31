@@ -32,65 +32,72 @@
 </head>
 <body>
 <?php include 'header.php'; ?>
-<div class="box">
-    <br><br><br><br>
-    <h1>Willkommen, <span><?= htmlspecialchars($_SESSION['name'] ?? $_SESSION['email'] ?? 'Gast') ?></span></h1>
-    <p>Dies ist dein Warenkorb</p>
+
+<div class="warenkorbseite">
+    <div class="warenkorb-kopf">
+        <h1>Willkommen, <span><?= htmlspecialchars($_SESSION['name'] ?? $_SESSION['email'] ?? 'Gast') ?></span></h1>
+        <p>Dies ist dein Warenkorb</p>
+    </div>
 
     <?php if ($warenkorbInhalt == 0): ?>
-        <h2>Dein Warenkorb ist leer</h2>
-        <p>Füge Produkte hinzu, um sie hier zu sehen!</p>
-        <button onclick="window.location.href='kaufen.php'">Zum Shop</button>
+        <div class="warenkorb-leer">
+            <h2>Dein Warenkorb ist leer</h2>
+            <p>Füge Produkte hinzu, um sie hier zu sehen!</p>
+            <button onclick="window.location.href='kaufen.php'">Zum Shop</button>
+        </div>
     <?php else: ?>
+        <h2>Hier sind deine Produkte:</h2>
 
+        <?php if ($warenkorb): ?>
+            <table class="warenkorb-tabelle">
+                <tr>
+                    <th>Produkt</th>
+                    <th>Preis</th>
+                </tr>
+                <?php foreach ($warenkorb as $id => $item):
+                    $subtotal = $item['Ppreis'];
+                    $gesamt += $subtotal;
+                ?>
+                    <tr>
+                        <td><?= htmlspecialchars($item['Pname']) ?></td>
+                        <td><?= number_format($item['Ppreis'], 2, ',', '.') ?> €</td>
+                    </tr>
+                <?php endforeach; ?>
+                <tr class="warenkorb-gesamt">
+                    <td>Gesamtpreis</td>
+                    <td><?= number_format($gesamt, 2, ',', '.') ?> €</td>
+                </tr>
+            </table>
+        <?php else: ?>
+            <div class="warenkorb-leer">
+                <p>Dein Warenkorb ist leer.</p>
+            </div>
+        <?php endif; ?>
+
+        <p><a href="kaufen.php">Weiter einkaufen</a></p>
+
+        <div class="warenkorb-aktionen">
+            <form method="GET" action="bestellen.php">
+                <input type="hidden" name="WID" value="<?= $WID ?>">
+                <input type="hidden" name="KID" value="<?= $KID ?>">
+                <input type="hidden" name="gesamt" value="<?= $gesamt ?>">
+                <button type="submit" name="bestellen">Bestellen</button>
+            </form>
+
+            <form method="POST" action="warenkorbleeren.php">
+                <button type="submit">Warenkorb leeren</button>
+            </form>
+
+            <form method="GET" action="allebestellungen.php">
+                <input type="hidden" name="WID" value="<?= $WID ?>">
+                <input type="hidden" name="KID" value="<?= $KID ?>">
+                <input type="hidden" name="gesamt" value="<?= $gesamt ?>">
+                <button type="submit" name="allebestellungen">Alle Bestellungen anzeigen</button>
+            </form>
+
+            <button onclick="window.location.href='logout.php'">Abmelden</button>
+        </div>
     <?php endif; ?>
-
-<!-- Warenkorbinhaltsliste -->
-
-<?php if ($warenkorb): ?>
-    <table border="1" cellpadding="5">
-        <tr>
-            <th>Produkt</th><th>Preis</th>
-        </tr>
-        <?php foreach ($warenkorb as $id => $item): 
-            $subtotal = $item['Ppreis'];
-            $gesamt += $subtotal;
-        ?>
-        <tr>
-            <td><?= htmlspecialchars($item['Pname']) ?></td>
-            <td><?= number_format($item['Ppreis'], 2) ?> €</td>
-        </tr>
-        <?php endforeach; ?>
-        <tr>
-            <td colspan="3"><strong>Gesamtpreis</strong></td>
-            <td><strong><?= number_format($gesamt, 2) ?> €</strong></td>
-        </tr>
-    </table>
-<?php else: ?>
-    <p>Dein Warenkorb ist leer.</p>
-<?php endif; ?>
-
-
-
-<p><a href="kaufen.php">Weiter einkaufen</a></p>
-    <!-- Bestell-Button -->
-    <form method="GET" action="bestellen.php">
-        <input type="hidden" name="WID" value="<?= $WID ?>">
-        <input type="hidden" name="KID" value="<?= $KID ?>">
-        <input type="hidden" name="gesamt" value="<?= $gesamt ?>">
-        <button type="submit" name="bestellen">Bestellen</button>
-</form>
-<!-- Warenkorb leeren Button -->
-<form method="POST" action="warenkorbleeren.php">
-    <button type="submit" >Warenkorb leeren</button>
-</form>
-<form method="GET" action="allebestellungen.php">
-    <input type="hidden" name="WID" value="<?= $WID ?>">
-    <input type="hidden" name="KID" value="<?= $KID ?>">
-    <input type="hidden" name="gesamt" value="<?= $gesamt ?>">
-    <button type="submit" name="allebestellungen">Alle Bestellungen anzeigen</button>
-</form>
-    <button onclick="window.location.href='logout.php'">Abmelden</button>
 </div>
 
 <?php include 'footer.php'; ?>
