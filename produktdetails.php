@@ -73,7 +73,7 @@
     </div>
 <?php endwhile; ?>
 
-<p><a href="warenkorb.php">Warenkorb ansehen</a></p>
+<p><a href="warenkorb.php">Warenkorb ansehen</a></p><br>
 	<?php 
         mysqli_close($conn);
     ?>
