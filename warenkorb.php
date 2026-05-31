@@ -42,30 +42,15 @@
         <p>Füge Produkte hinzu, um sie hier zu sehen!</p>
         <button onclick="window.location.href='kaufen.php'">Zum Shop</button>
     <?php else: ?>
-        <h2>Hier sind deine Produkte:</h2>
-        <?php
-        $sql = "SELECT * FROM warenkorbinhalt JOIN produkte ON warenkorbinhalt.PID = produkte.PID WHERE warenkorbinhalt.WID = ?";
-        $winhalt = $conn->prepare($sql);
-        $winhalt->bind_param("i", $_SESSION['WID']);
-        $winhalt->execute();
-        $result = $winhalt->get_result();
 
-        while($i = $result->fetch_assoc()):
-        ?>
-            <p>PID: <?= $i["PID"] ?></p>
-            <h4><i>Name:</i> <?= htmlspecialchars($i["Pname"]) ?></h4>
-            <p><i>Preis:</i> <?= htmlspecialchars($i["Ppreis"]) ?> €</p>
-        <?php endwhile;
-        $conn->close();
-        ?>
     <?php endif; ?>
 
 <!-- Warenkorbinhaltsliste -->
-<h1>Warenkorb</h1>
+
 <?php if ($warenkorb): ?>
     <table border="1" cellpadding="5">
         <tr>
-            <th>Produkt</th><th>Preis</th><th>Subtotal</th>
+            <th>Produkt</th><th>Preis</th>
         </tr>
         <?php foreach ($warenkorb as $id => $item): 
             $subtotal = $item['Ppreis'];
@@ -73,13 +58,12 @@
         ?>
         <tr>
             <td><?= htmlspecialchars($item['Pname']) ?></td>
-            <td>$<?= number_format($item['Ppreis'], 2) ?></td>
-            <td>$<?= number_format($subtotal, 2) ?></td>
+            <td><?= number_format($item['Ppreis'], 2) ?> €</td>
         </tr>
         <?php endforeach; ?>
         <tr>
             <td colspan="3"><strong>Gesamtpreis</strong></td>
-            <td><strong>$<?= number_format($gesamt, 2) ?></strong></td>
+            <td><strong><?= number_format($gesamt, 2) ?> €</strong></td>
         </tr>
     </table>
 <?php else: ?>
