@@ -70,18 +70,23 @@ foreach ($products as $p) {
 <!-- button für in den Warenkorb hinzufügen -->
 <h1>Product List</h1>
 <?php while ($row = $result->fetch_assoc()): ?>
-    <div>
-        <h3><?= htmlspecialchars($row['Pname']) ?></h3>
-        <p>Preis: $<?= number_format($row['Ppreis'], 2) ?></p>
-        <form method="POST" action="oinwarenkorb.php">
-            <input type="hidden" name="PID" value="<?= $row['PID'] ?>">
-            <button type="submit">add to cart</button>
+    <article class="boxen">
+        <a href="produktdetails.php?PID=<?= (int)$row['PID'] ?>">
+            <img src="<?= htmlspecialchars($row['Pbild']) ?>" alt="<?= htmlspecialchars($row['Pname']) ?>">
+        </a>
+
+        <div class="produktinfo">
+            <h3><?= htmlspecialchars($row['Pname']) ?></h3>
+            <p><?= number_format((float)$row['Ppreis'], 2, ',', '.') ?> €</p>
+        </div>
+
+        <form method="POST" action="pinwarenkorb.php">
+            <input type="hidden" name="PID" value="<?= (int)$row['PID'] ?>">
+            <button type="submit">In den Warenkorb</button>
         </form>
-    </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br>
-
+    </article>
 <?php endwhile; ?>
-
+</div>
 <p><a href="warenkorb.php">Warenkorb ansehen</a></p>
 
 <!-- Datenbank wieder schließen -->
@@ -91,34 +96,11 @@ foreach ($products as $p) {
 
 
 
-<!--
-<?php
-    require_once 'db_config.php';
-    $conn = get_db_connection();
-
-    $pid = isset($_GET['pid']) ? (int)$_GET['pid'] : 0;
-		if ($pid > 0) {}
-			  $sql = "INSERT INTO whinhalt (PID, WID) VALUES (?, ?)" ;
-			  $stmt = $conn->prepare($sql);
-			  $stmt->bind_param("i", $pid);
-			  $stmt->execute();
-			  $result = $stmt->get_result();
-            if ($result) {
-                echo "Produkt zum Warenkorb hinzugefügt!";
-            } else {
-                echo "Fehler beim Hinzufügen zum Warenkorb: " . $conn->error;
-            }
-
-?>
--->
-
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="script.js"></script>
 
 
-<div class="item" id="footer"> 
-			<div id="footerinhalt"><br>© 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj <br> <br> 	<a href="Impressum.html">IMPRESSUM</a> <br>  </div>
-</div>
+<?php include 'footer.php'; ?>
 
 </body>
 </html>
