@@ -18,10 +18,17 @@
 
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br>
-Titel des Produkts
-halli hallo
-
+<div class="detailfotos"> 
+	<img src="shampoo.jpg" alt="photo1">
+	<img src="shampoo2.jpg" alt="photo1">
+	<img src="shampoo3.jpg" alt="photo1">
+</div> 
+<div class="alleeinzelprodukte">
+	<h3>Name des Produkts</h3>
+	<p>10,00 €</p>
+	<button type="submit">In den Warenkorb</button>
+	<p>Beschreibung des Produkts</p>
+</div>
 
 
 </div>

@@ -10,7 +10,7 @@
 <body> 
 
  <div class="menuband">
-	<a id="logo" href="index.php"><img src="house.png" alt="Startseite" ></a>
+	<a id="logo" href="index.php"><img src="biber.svg" alt="Startseite" ></a>
 	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
 	<a href="login.php">Konto</a> </div>
 </div>
@@ -22,7 +22,7 @@
 
 	<div class="fotogallerie"
 	data-flickity-options='{ "wrapAround": true }'>
-	<div class="galleriefoto"><p class="cursor typewriter-animation">Hallo einsamer Biber! Schön, dass du da bist! </p> </div>
+	<!-- <div class="galleriefoto"><p class="cursor typewriter-animation">Hallo einsamer Biber! Schön, dass du da bist! </p> </div> -->
 	<div class="galleriefoto"><img src="shampoo.jpg" alt="photo1"></div>
 	<div class="galleriefoto"><img src="shampoo2.jpg" alt="photo1"></div>
 	<div class="galleriefoto"><img src="shampoo3.jpg" alt="photo1"></div>
@@ -86,7 +86,11 @@
 
 
 <div class="item" id="footer"> 
-	<div id="footerinhalt"> © 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj  </div>  
+	<div id="footerinhalt"> 
+        <h4>KONTAKT</h4>
+        <p>Telefon: +49 123 456 789</p>
+        <p>Email: info@bibershop.de</p>
+        © 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj  </div>  
 </div>
 
 <?php
