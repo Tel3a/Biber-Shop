@@ -26,7 +26,7 @@
 
     $conn = mysqli_connect($servername, $username, $passwort, $datenbank);
     if($conn && !$conn->connect_error) {
-        $sql = "SELECT PID, Pbild, Pname FROM produkte";
+        $sql = "SELECT PID, Pbild, Pname FROM produkte WHERE PID=7 OR PID=3 OR PID=102";
         $result = $conn->query($sql);
         if($result && $result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -39,9 +39,8 @@
         mysqli_close($conn);
     }
     ?>
-	
 	</div>
-	
+	<a class="zumShop" href="kaufen.php">Zum Shop</a>
 
 	<br><br><br>
 	

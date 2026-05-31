@@ -73,14 +73,13 @@ foreach ($products as $p) {
 <?php while ($row = $result->fetch_assoc()): ?>
     <article class="boxen">
         <a href="produktdetails.php?PID=<?= (int)$row['PID'] ?>">
-            <img src="<?= htmlspecialchars($row['Pbild']) ?>" alt="<?= htmlspecialchars($row['Pname']) ?>">
-        </a>
+          <img src="<?= htmlspecialchars($row['Pbild']) ?>" alt="<?= htmlspecialchars($row['Pname']) ?>">
 
         <div class="produktinfo">
             <h3><?= htmlspecialchars($row['Pname']) ?></h3>
             <p><?= number_format((float)$row['Ppreis'], 2, ',', '.') ?> €</p>
         </div>
-
+        </a>
         <form method="POST" action="pinwarenkorb.php">
             <input type="hidden" name="PID" value="<?= (int)$row['PID'] ?>">
             <button type="submit">In den Warenkorb</button>

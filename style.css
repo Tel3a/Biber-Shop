@@ -9,11 +9,12 @@ body {
 	display: flex;
 	flex-direction: column;
 }
-h1, h2, h3, h4 {
-	/*font-weight: normal;
+/*h1, h2, h3, h4 {
+	font-weight: normal;
 	text-align: center;
-	margin-bottom: 10px;*/
-}
+	margin-bottom: 10px;
+}*/
+
 .seiteninhalt {
 	padding-top: 115px;
 }
@@ -42,7 +43,7 @@ format("opentype");
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
-    z-index: 100;
+    z-index: 1000;
     align-items: center;
 }
 .header a:hover {
@@ -99,7 +100,7 @@ format("opentype");
 	height: 24px;
 }
 
-#footer {
+/*#footer {
     background-color: #1d1a1a;
     color: #ffffff;
     border-top: 4px solid #000000;
@@ -118,10 +119,46 @@ format("opentype");
 .footerinhalt {
     text-align: left;
 
+}*/
+#footer {
+    background-color: #1d1a1a;
+    color: #ffffff;
+    border-top: 4px solid #000000;
+    margin-top: auto;
+    min-height: 220px;
+    width: 100%;
+    padding: 40px;
+	
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;      /* Divs nebeneinander */
+    flex-wrap: wrap;          /* bei wenig Platz umbrechen */
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
+.footerinhalt {
+    text-align: left;
+    flex: 1 1 200px;          /* flexibel, min ~200px breit */
+    margin-right: 20px;
+}
 
+.footerinhalt p {
+    margin: 0 0 8px 0;        /* Abstand zwischen den Zeilen */
+	text-align: left;
+}
 
+.footer-copyright {
+    margin-top: 80px;
+    text-align: left;
+}
+.infos a {
+	color: inherit;
+}
+.infos a:hover{
+	opacity: 0.6;
+	text-decoration: none;
+}
 
 /* Google Fonts */
 @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
@@ -168,20 +205,42 @@ format("opentype");
   flex-wrap: wrap;
   border-radius: 100px;
   height: auto;
+  position: relative;
 }
 .galleriefoto {
 	width: 76%;
-	min-height: 300px;
-	height: auto;
-	margin-right: 10px;
-	padding-top: 20px;
+	height: 100%;
+	min-height: 350px;
 	display: flex; 
-	flex-direction: column; 
+	align-items: center;
 	justify-content: center;
-	counter-increment: galleriefoto;
 	color:#e7e0d5;
 	background-color: #000000;
-	object-fit: contain;
+	object-fit: cover;
+	margin-right: 10px;
+
+}
+.galleriefoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.zumShop {
+	display: block;
+	width: 200px;
+	padding: 12px 12px;
+	border-radius: 12px;
+	background: #7494e9;
+	color: #fff;
+	font-size: 1rem;
+	text-align: center;
+	text-decoration: none;
+	z-index: 100;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 /*.product-gallery {
@@ -220,8 +279,7 @@ format("opentype");
     padding: 30px 20px;
     justify-items: center;
     align-items: stretch;
-    border-radius: 24px;
-    background: linear-gradient(180deg, #faf7f2 0%, #ffffff 100%);
+   
 }
 
 #produktgallerie .boxen {
@@ -229,7 +287,7 @@ format("opentype");
     max-width: 280px;
     background: #fff;
     border: 1px solid #e7e0d5;
-    border-radius: 18px;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -254,7 +312,7 @@ format("opentype");
 
 #produktgallerie .boxen .produktinfo {
     padding: 16px;
-    text-align: center;
+    text-align: left;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -456,207 +514,106 @@ span {
 
 	
 
-	
 /*Warenkorb*/
-	
+
 .warenkorbseite {
-	
     max-width: 1100px;
-	
     margin: 0 auto;
-	
     padding: 30px 20px;
-	
 }
-	
 
-	
 .warenkorb-kopf {
-	
     background: #fff;
-	
     border: 1px solid #e7e0d5;
-	
     border-radius: 18px;
-	
     padding: 24px;
-	
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-	
     margin-bottom: 24px;
-	
     text-align: center;
-	
 }
-	
 
-	
 .warenkorb-kopf h1 {
-	
     margin-top: 0;
-	
     margin-bottom: 10px;
-	
     font-size: 1.8rem;
-	
 }
-	
 
-	
 .warenkorb-kopf p {
-	
     margin: 0;
-	
     color: #555;
-	
 }
-	
 
-	
 .warenkorb-tabelle {
-	
     width: 100%;
-	
     border-collapse: collapse;
-	
     background: #fff;
-	
     border: 1px solid #e7e0d5;
-	
     border-radius: 18px;
-	
     overflow: hidden;
-	
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-	
 }
-	
 
-	
 .warenkorb-tabelle th,
-	
 .warenkorb-tabelle td {
-	
     padding: 16px 18px;
-	
     text-align: left;
-	
     border-bottom: 1px solid #eee;
-	
 }
-	
 
-	
 .warenkorb-tabelle th {
-	
     background: #faf7f2;
-	
     font-weight: normal;
-	
     color: #1d1a1a;
-	
 }
-	
 
-	
 .warenkorb-tabelle tr:last-child td {
-	
     border-bottom: none;
-	
 }
-	
 
-	
 .warenkorb-gesamt {
-	
     font-weight: bold;
-	
     font-size: 1.1rem;
-	
     background: #faf7f2;
-	
 }
-	
 
-	
 .warenkorb-aktionen {
-	
     display: flex;
-	
     flex-wrap: wrap;
-	
     gap: 12px;
-	
     margin-top: 24px;
-	
     justify-content: center;
-	
 }
-	
 
-	
 .warenkorb-aktionen form,
-	
 .warenkorb-aktionen a {
-	
     margin: 0;
-	
 }
-	
 
-	
 .warenkorb-aktionen button,
-	
 .warenkorb-aktionen a.button-link {
-	
     display: inline-block;
-	
     padding: 12px 18px;
-	
     border: none;
-	
     border-radius: 12px;
-	
     background: #7494e9;
-	
     color: #fff;
-	
     text-decoration: none;
-	
     cursor: pointer;
-	
     font-size: 0.95rem;
-	
     transition: background 0.2s ease, transform 0.2s ease;
-	
 }
-	
 
-	
 .warenkorb-aktionen button:hover,
-	
 .warenkorb-aktionen a.button-link:hover {
-	
     background: #5f7ed6;
-	
     transform: translateY(-2px);
-	
 }
-	
-
 	
 .warenkorb-leer {
-	
-    background: #fff;
-	
-    border: 1px solid #e7e0d5;
-	
-    border-radius: 18px;
-	
-    padding: 24px;
-	
-    text-align: center;
-	
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-	
+    background: #fff;	
+    border: 1px solid #e7e0d5;	
+    border-radius: 18px;	
+    padding: 24px;	
+    text-align: center;	
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);	
 }
