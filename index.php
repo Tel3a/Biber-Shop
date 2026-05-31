@@ -9,24 +9,36 @@
 
 <body> 
 
- <div class="menuband">
-	<a id="logo" href="index.php"><img src="biber.svg" alt="Startseite" ></a>
-	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
-	<a href="login.php">Konto</a> </div>
-	<a href="warenkorb.php">Warenkorb</a>
-</div>
 
 
+<?php include 'header.php'; ?>
 
 
 <div class="seiteninhalt"> 
 
 	<div class="fotogallerie"
 	data-flickity-options='{ "wrapAround": true }'>
-	<!-- <div class="galleriefoto"><p class="cursor typewriter-animation">Hallo einsamer Biber! Schön, dass du da bist! </p> </div> -->
-	<div class="galleriefoto"><img src="shampoo.jpg" alt="photo1"></div>
-	<div class="galleriefoto"><img src="shampoo2.jpg" alt="photo1"></div>
-	<div class="galleriefoto"><img src="shampoo3.jpg" alt="photo1"></div>
+    <?php
+    $servername = "localhost";
+    $username = "root";
+    $passwort = "";
+    $datenbank = "bibershop";
+
+    $conn = mysqli_connect($servername, $username, $passwort, $datenbank);
+    if($conn && !$conn->connect_error) {
+        $sql = "SELECT PID, Pbild, Pname FROM produkte";
+        $result = $conn->query($sql);
+        if($result && $result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $pid = urlencode($row['PID']);
+                $img = htmlspecialchars($row['Pbild']);
+                $alt = htmlspecialchars($row['Pname']);
+                echo '<a class="galleriefoto" href="produktdetails.php?pid='.$pid.'"><img src="'.$img.'" alt="'.$alt.'"></a>';
+            }
+        }
+        mysqli_close($conn);
+    }
+    ?>
 	
 	</div>
 	
@@ -70,16 +82,9 @@
 
 
 
+<?php include 'footer.php'; ?>
 
-<div class="item" id="footer"> 
-	<div id="footerinhalt"> 
-        <h4>KONTAKT</h4>
-        <p>Telefon: +49 123 456 789</p>
-        <p>Email: info@bibershop.de</p>
-        © 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj  </div>  
-</div>
-
-	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="script.js"></script>
 </body>
