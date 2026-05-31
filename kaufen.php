@@ -13,7 +13,7 @@
 
 <div class="seiteninhalt">
 
-
+<!--
 <?php
 $products = [
   ["name" => "T-Shirt", "category" => "shirts", "image" => "img/shirt1.jpg", "price" => "19,90 €"],
@@ -30,6 +30,7 @@ foreach ($products as $p) {
   echo '</article>';
 }
 ?>
+-->
   </div>
 </section>
 
@@ -68,7 +69,7 @@ foreach ($products as $p) {
         */ ?>
 
 <!-- button für in den Warenkorb hinzufügen -->
-<h1>Product List</h1>
+<!-- <h1>Product List</h1>-->
 <?php while ($row = $result->fetch_assoc()): ?>
     <article class="boxen">
         <a href="produktdetails.php?PID=<?= (int)$row['PID'] ?>">
