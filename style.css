@@ -7,12 +7,13 @@ body {
 	color: rgb(28, 40, 22);
 	min-height: 100vh;
 	display: flex;
-	flex-wrap: wrap;
 	flex-direction: column;
 }
-
-
-
+h1, h2, h3, h4 {
+	font-weight: normal;
+	text-align: center;
+	margin-bottom: 10px;
+}
 .seiteninhalt {
 	padding-top: 115px;
 }
@@ -27,47 +28,45 @@ font-family: Lexend Zetta;
 src: url('LexendZetta-VariableFont_wght.ttf')
 format("opentype");
 }
-.header {
+.menuband {
 	background-color: #ffffff;
 	text-align: right;
 	border-bottom: 1px solid #c5c5c5;
 	position: fixed;
-	padding-right: 40px;
+	padding-right: 20px;
 	top: 0;
 	width: 100%;
 	height: 90px;
 	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
+	align-items: center;
 	justify-content: space-between;
 	z-index: 100;
-	align-items: center;
 }
-.header a:hover {
-	opacity: 0.6;
-}
+
+
+
 .menuoptionen {
 	color: black;
 	text-decoration: none;
 	font-size: 110%;
-	padding-right: 40px;
+	padding-right: 20px;
 	text-align: right;
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	justify-content: space-between;
-	max-height: fit-content;
+
 }
-.menuoptionen img {
-	width: 24px;
-	height: 24px;
+.menuband a:hover {
+	opacity: 0.6;
+	
+}
+#logo {
+	padding-left: 20px;
+	display: flex;
+	align-items: center;
 }
 #logo img {
-	display: flex;
-	padding-left: 20px;
-	align-items: center;
 	height: 70px;
 	width: auto;
+	display: block;
+
 }
 
 
@@ -97,24 +96,23 @@ format("opentype");
 }
 
 #footer {
+
+	align-items: left;
 	background-color: #1d1a1a;
 	color: #ffffff;
+	justify-content: left;
 	border-top: 4px solid #000000;
 	margin-top: auto;
 	min-height: 220px;
 	min-width: 100%;
-	bottom: 0;
-	padding: 20px;
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column;
-	justify-content: space-between;
-
 }
 
-.footerinhalt {
-	text-align: left;
-
+#footerinhalt {
+	margin-left: 20px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+		display: flex;
+	flex-wrap: wrap;
 }
 
 
@@ -177,7 +175,7 @@ format("opentype");
 	justify-content: center;
 	counter-increment: galleriefoto;
 	color:#e7e0d5;
-	background-color: #9a6c6c;
+	background-color: #000000;
 	object-fit: contain;
 }
 
