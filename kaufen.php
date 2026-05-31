@@ -7,23 +7,17 @@
 </head>
 
 <body> 
-<?php include 'header.php'; ?>
+
+
+ <div class="menuband">
+	<a id="logo" href="index.php"><img src="house.png" alt="Startseite" ></a>
+	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
+	<a href="warenkorb.php">Warenkorb (0)</a> </div>
+</div>
 
 <div class="seiteninhalt">
 
 
-
-
-<!--
- was ist eine sektion?
-<section class="product-gallery">
-  <div class="filters">
-    <button data-filter="all">Alle</button>
-    <button data-filter="shirts">Shirts</button>
-    <button data-filter="shoes">Schuhe</button>
-  </div>
-
-  <div class="grid" id="productGrid">
 <?php
 $products = [
   ["name" => "T-Shirt", "category" => "shirts", "image" => "img/shirt1.jpg", "price" => "19,90 €"],
@@ -47,7 +41,7 @@ foreach ($products as $p) {
   <button id="closeLightbox">×</button>
   <img id="lightboxImg" src="" alt="">
 </div>
--->
+
 
 <div id="produktgallerie"> 
     <?php 
@@ -67,36 +61,68 @@ foreach ($products as $p) {
         $result = $conn->query($sql);
 
         /* für jedes Produkt eine Box mit Bild, Name und Warenkorb Button */
-        while ($i = $result->fetch_assoc()):
+        /*while ($i = $result->fetch_assoc()):
             ?>
-            <div class="boxen"><a href="produktdetails.php?pid=<?= $i['PID'] ?>">
+            <a class="boxen" href="produktdetails.php?pid=<?= $i['PID'] ?>">
             <img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="kein Bild verfügbar">
             <p><?= htmlspecialchars($i['Pname']) ?></p>
             </a>
-            <button> In den Warenkorb</button> 
-            </div>  
-            
-    <?php endwhile; 
-        mysqli_close($conn);
+            <button onclick="addToCart(<?= $i['PID'] ?>)">In den Warenkorb</button>
+        <?php endwhile; ?>
+        */ ?>
+
+<!-- button für in den Warenkorb hinzufügen -->
+<h1>Product List</h1>
+<?php while ($row = $result->fetch_assoc()): ?>
+    <div>
+        <h3><?= htmlspecialchars($row['Pname']) ?></h3>
+        <p>Preis: $<?= number_format($row['Ppreis'], 2) ?></p>
+        <form method="POST" action="oinwarenkorb.php">
+            <input type="hidden" name="PID" value="<?= $row['PID'] ?>">
+            <button type="submit">add to cart</button>
+        </form>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+
+<?php endwhile; ?>
+
+<p><a href="warenkorb.php">Warenkorb ansehen</a></p>
+
+<!-- Datenbank wieder schließen -->
+        <?php mysqli_close($conn);
     ?>
 </div>
-<!--	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1 <br> <button> 
-      In den Warenkorb</button> </a>
-	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
-	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
-	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
-	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
-	<a class="boxen" href="produktdetails.php"><img src="shampoo.jpg" alt="photo1"> test1</a>
-</div>
-  -->
 
-</div>
+
+
+<!--
+<?php
+    require_once 'db_config.php';
+    $conn = get_db_connection();
+
+    $pid = isset($_GET['pid']) ? (int)$_GET['pid'] : 0;
+		if ($pid > 0) {}
+			  $sql = "INSERT INTO whinhalt (PID, WID) VALUES (?, ?)" ;
+			  $stmt = $conn->prepare($sql);
+			  $stmt->bind_param("i", $pid);
+			  $stmt->execute();
+			  $result = $stmt->get_result();
+            if ($result) {
+                echo "Produkt zum Warenkorb hinzugefügt!";
+            } else {
+                echo "Fehler beim Hinzufügen zum Warenkorb: " . $conn->error;
+            }
+
+?>
+-->
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="script.js"></script>
 
 
-<?php include 'footer.php'; ?>
+<div class="item" id="footer"> 
+			<div id="footerinhalt"><br>© 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj <br> <br> 	<a href="Impressum.html">IMPRESSUM</a> <br>  </div>
+</div>
 
 </body>
 </html>
