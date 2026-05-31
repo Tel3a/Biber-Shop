@@ -296,7 +296,18 @@ p a:hover {
 h5 {
 	color: red;
 }
+span {
+	color: #7494ec;
+}
+.box p{
+	font-size: 22px;
 
+}
+.box button {
+	display: block;
+	width: 300px;
+	margin: 0, auto;
+}
 
 /* Detailseite */
 .alleeinzelprodukte {
