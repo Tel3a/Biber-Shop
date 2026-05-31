@@ -18,20 +18,21 @@
                 $email = $_POST["email"] ?? "";
                 $passwort = $_POST["passwort"] ?? "";
 
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $error = "<h5>Ungültige E-Mail</h5>";
+                if (empty($email)) {
+                    $error = "<h5>Ungültiger Benutzername oder E-Mail</h5>";
                 }
                 elseif (empty($passwort)) {
                     $error = "<h5>Ungültiges Passwort</h5>";
                 } else {
-                    $obrichtigerUser = $conn->prepare('SELECT KID, Passwort FROM Kunden WHERE Username = ?'); //prepare schützt vor Hacking
-                    $obrichtigerUser->bind_param('s', $email); // bind_param schützt vor Hacking
+                    $obrichtigerUser = $conn->prepare('SELECT KID, Username, Passwort FROM Kunden WHERE Email = ? OR Username = ?'); //prepare schützt vor Hacking
+                    $obrichtigerUser->bind_param('ss', $email, $email); // bind_param schützt vor Hacking
                     $obrichtigerUser->execute();
                     $row = $obrichtigerUser->get_result()->fetch_assoc();
 
                     if ($row && password_verify($passwort, $row['Passwort'])) {
                         $_SESSION['KID'] = $row['KID'];
                         $_SESSION['email'] = $email;
+                        $_SESSION['name'] = $row['Username'];
                         header('Location: index.php');
                         exit();
                     } else {
@@ -44,7 +45,7 @@
  
     	<h1>Login</h1>
     	<form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method ="post">
-            <input type="text" name="email" placeholder="Email" required><br>
+            <input type="text" name="email" placeholder="E-Mail oder Benutzername" required><br>
             <input type="password" name="passwort" placeholder="Passwort" required><br>
             <button type="submit">Login</button><br>
             <p>Noch kein Konto? <a href="registrieren.php">Hier registrieren</a></p>
