@@ -33,22 +33,15 @@ if (isset($_POST['PID'])) {
     $KID = (int) $_SESSION['KID'];
     echo "DEBUG KID: $KID<br>";
 
-    $widholen = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ?");
-    $widholen->bind_param("i", $KID);
-    $widholen->execute();
-    $widResult = $widholen->get_result();
+    if (!isset($_SESSION['WID'])) {
+    $neuerw = $conn->prepare("INSERT INTO warenkorb (KID) VALUES (?)");
+    $neuerw->bind_param("i", $KID);
+    $neuerw->execute();
+    $_SESSION['WID'] = $conn->insert_id;
+    $neuerw->close();
+}
 
-    if ($widResult->num_rows > 0) {
-        $row = $widResult->fetch_assoc();
-        $WID = (int) $row['WID'];
-    } else {
-        $neuerw = $conn->prepare("INSERT INTO warenkorb (KID) VALUES (?)");
-        $neuerw->bind_param("i", $KID);
-        $neuerw->execute();
-        $WID = (int) $conn->insert_id;
-        $neuerw->close();
-    }
-    $widholen->close();
+$WID = (int) $_SESSION['WID'];
 
     echo "DEBUG WID: $WID<br>";
 
