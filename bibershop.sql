@@ -92,6 +92,12 @@ ALTER TABLE `Kunden`
   MODIFY `KID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
+-- Daten für Tabelle `Produkte`
+
+INSERT INTO `kunden`(`KID`, `Username`, `Email`, `Passwort`) VALUES ('0','hallo','hallo@abc.de','hallihallo');
+--
+
+
 -- Tabelle Bestellungen
 
 CREATE TABLE IF NOT EXISTS `Bestellungen`(
