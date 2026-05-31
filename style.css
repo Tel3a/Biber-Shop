@@ -10,9 +10,9 @@ body {
 	flex-direction: column;
 }
 h1, h2, h3, h4 {
-	font-weight: normal;
+	/*font-weight: normal;
 	text-align: center;
-	margin-bottom: 10px;
+	margin-bottom: 10px;*/
 }
 .seiteninhalt {
 	padding-top: 115px;
@@ -28,46 +28,50 @@ font-family: Lexend Zetta;
 src: url('LexendZetta-VariableFont_wght.ttf')
 format("opentype");
 }
-.menuband {
-	background-color: #ffffff;
-	text-align: right;
-	border-bottom: 1px solid #c5c5c5;
-	position: fixed;
-	padding-right: 20px;
-	top: 0;
-	width: 100%;
-	height: 90px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	z-index: 100;
+
+.header {
+    background-color: #ffffff;
+    text-align: right;
+    border-bottom: 1px solid #c5c5c5;
+    position: fixed;
+    padding-right: 40px;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 100;
+    align-items: center;
 }
-
-
-
+.header a:hover {
+    opacity: 0.6;
+}
 .menuoptionen {
-	color: black;
-	text-decoration: none;
-	font-size: 110%;
-	padding-right: 20px;
-	text-align: right;
-
+    color: black;
+    text-decoration: none;
+    font-size: 110%;
+    padding-right: 40px;
+    text-align: right;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    max-height: fit-content;
 }
-.menuband a:hover {
-	opacity: 0.6;
-	
-}
-#logo {
-	padding-left: 20px;
-	display: flex;
-	align-items: center;
+.menuoptionen img {
+    width: 24px;
+    height: 24px;
 }
 #logo img {
-	height: 70px;
-	width: auto;
-	display: block;
-
+    display: flex;
+    padding-left: 20px;
+    align-items: center;
+    height: 70px;
+    width: auto;
 }
+
 
 
 .seiteninhalt {
@@ -96,23 +100,24 @@ format("opentype");
 }
 
 #footer {
+    background-color: #1d1a1a;
+    color: #ffffff;
+    border-top: 4px solid #000000;
+    margin-top: auto;
+    min-height: 220px;
+    min-width: 100%;
+    bottom: 0;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
 
-	align-items: left;
-	background-color: #1d1a1a;
-	color: #ffffff;
-	justify-content: left;
-	border-top: 4px solid #000000;
-	margin-top: auto;
-	min-height: 220px;
-	min-width: 100%;
 }
 
-#footerinhalt {
-	margin-left: 20px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-		display: flex;
-	flex-wrap: wrap;
+.footerinhalt {
+    text-align: left;
+
 }
 
 
@@ -448,105 +453,210 @@ span {
     }
 }
 
+
+	
+
+	
 /*Warenkorb*/
+	
 .warenkorbseite {
+	
     max-width: 1100px;
+	
     margin: 0 auto;
+	
     padding: 30px 20px;
+	
 }
+	
 
+	
 .warenkorb-kopf {
+	
     background: #fff;
+	
     border: 1px solid #e7e0d5;
+	
     border-radius: 18px;
+	
     padding: 24px;
+	
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+	
     margin-bottom: 24px;
+	
     text-align: center;
+	
 }
+	
 
+	
 .warenkorb-kopf h1 {
+	
     margin-top: 0;
+	
     margin-bottom: 10px;
+	
     font-size: 1.8rem;
+	
 }
+	
 
+	
 .warenkorb-kopf p {
+	
     margin: 0;
+	
     color: #555;
+	
 }
+	
 
+	
 .warenkorb-tabelle {
+	
     width: 100%;
+	
     border-collapse: collapse;
+	
     background: #fff;
+	
     border: 1px solid #e7e0d5;
+	
     border-radius: 18px;
+	
     overflow: hidden;
+	
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+	
 }
+	
 
+	
 .warenkorb-tabelle th,
+	
 .warenkorb-tabelle td {
+	
     padding: 16px 18px;
+	
     text-align: left;
+	
     border-bottom: 1px solid #eee;
+	
 }
+	
 
+	
 .warenkorb-tabelle th {
+	
     background: #faf7f2;
+	
     font-weight: normal;
+	
     color: #1d1a1a;
+	
 }
+	
 
+	
 .warenkorb-tabelle tr:last-child td {
+	
     border-bottom: none;
+	
 }
+	
 
+	
 .warenkorb-gesamt {
+	
     font-weight: bold;
+	
     font-size: 1.1rem;
+	
     background: #faf7f2;
+	
 }
+	
 
+	
 .warenkorb-aktionen {
+	
     display: flex;
+	
     flex-wrap: wrap;
+	
     gap: 12px;
+	
     margin-top: 24px;
+	
     justify-content: center;
+	
 }
+	
 
+	
 .warenkorb-aktionen form,
+	
 .warenkorb-aktionen a {
+	
     margin: 0;
+	
 }
+	
 
+	
 .warenkorb-aktionen button,
+	
 .warenkorb-aktionen a.button-link {
+	
     display: inline-block;
+	
     padding: 12px 18px;
+	
     border: none;
+	
     border-radius: 12px;
+	
     background: #7494e9;
+	
     color: #fff;
+	
     text-decoration: none;
+	
     cursor: pointer;
+	
     font-size: 0.95rem;
+	
     transition: background 0.2s ease, transform 0.2s ease;
+	
 }
+	
 
+	
 .warenkorb-aktionen button:hover,
+	
 .warenkorb-aktionen a.button-link:hover {
+	
     background: #5f7ed6;
+	
     transform: translateY(-2px);
+	
 }
+	
 
+	
 .warenkorb-leer {
+	
     background: #fff;
+	
     border: 1px solid #e7e0d5;
+	
     border-radius: 18px;
+	
     padding: 24px;
+	
     text-align: center;
+	
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+	
 }
