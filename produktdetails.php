@@ -8,11 +8,7 @@
 </head>
 
 <body>
- <div class="menuband">
-	<a id="logo" href="index.php"><img src="house.png" alt="Startseite" ></a>
-	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
-	<a href="login.php">Login</a> </div>
-</div>
+<?php include 'header.php'; ?>
 
 <div class="seiteninhalt">
 
@@ -82,9 +78,7 @@
 </div>
 
 
-<div class="item" id="footer"> 
-	<div id="footerinhalt"> © 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj  </div>  
-</div>
+<?php include 'footer.php'; ?>
 
 
 
