@@ -1,1 +1,215 @@
 # xx hihi
+
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Erstellungszeit: 31. Mai 2026 um 10:53
+-- Server-Version: 10.4.32-MariaDB
+-- PHP-Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Datenbank: `bibershop`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `bestellungen`
+--
+
+CREATE TABLE `bestellungen` (
+  `BID` int(10) UNSIGNED NOT NULL,
+  `WID` int(10) UNSIGNED NOT NULL,
+  `KID` int(11) UNSIGNED NOT NULL,
+  `Datum` datetime NOT NULL,
+  `Bpreis` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `kunden`
+--
+
+CREATE TABLE `kunden` (
+  `KID` int(10) UNSIGNED NOT NULL,
+  `Username` varchar(255) NOT NULL,
+  `Email` varchar(255) NOT NULL,
+  `Passwort` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `produkte`
+--
+
+CREATE TABLE `produkte` (
+  `PID` int(10) UNSIGNED NOT NULL,
+  `Pname` varchar(255) NOT NULL,
+  `Pbeschreibung` varchar(500) NOT NULL,
+  `Ppreis` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Daten für Tabelle `produkte`
+--
+
+INSERT INTO `produkte` (`PID`, `Pname`, `Pbeschreibung`, `Ppreis`) VALUES
+(1, ' Kamm-o-Biber™ – Für den perfekten Nage-Scheitel', 'Verabschiede dich von chaotischem Pelz und begrüße den „Ich hab mein Leben im Griff“-Look. Der Kamm-o-Biber™ gleitet sanft durch jedes noch so rebellische Fell und sorgt für aerodynamische Eleganz beim Schwimmen und Nagen. Bonus: erzeugt beim Durchziehen ein befriedigendes knrkrk-Geräusch.', 2.00),
+(2, 'BürstiBiber Deluxe – Flausch auf Industrieniveau', 'Diese Bürste bringt selbst den struppigsten Dammarbeiter zurück in die High-Society des Bibertums. Mit extra robusten Borsten aus… nun ja, wir fragen besser nicht woher. Ideal für Vorher-Nachher-Verwandlungen und spontane Wald-Fotoshootings. Achtung: Kann zu übermäßigem Selbstbewusstsein führen.', 2.00),
+(3, 'FellFix Pro™ – Glanz, der blendet', 'Ein Tropfen FellFix Pro™ und dein Pelz reflektiert mehr Licht als ein frisch polierter See bei Sonnenaufgang. Pflegt, schützt und macht dich zum Gesprächsthema am Flussufer. Enthält die geheime Formel „AquaFlausch+“. Niemand weiß, was drin ist – aber alle sind beeindruckt.', 2.00),
+(4, 'ZahnFeil 3000 – Für den perfekten Biss', 'Nagen ist kein Hobby. Es ist eine Kunst. Mit der ZahnFeil 3000 bringst du deine Schneidezähne auf Präzisionsniveau. Für saubere Schnitte, stilvolles Knabbern und maximale Einschüchterung von rivalisierenden Bibern. Inklusive „Feil wie ein Profi“-Anleitung (besteht hauptsächlich aus: mehr nagen).', 2.00),
+(5, 'Regenjacke Hydrobeaver™ - Weil… mehr Regen geht immer', '„Aber ich bin doch schon nass!“ – Falsch gedacht. Mit der Hydrobeaver™ bleibst du nicht nur trocken, sondern siehst dabei auch noch aus wie ein trendbewusster Wasseringenieur. Winddicht, wasserdicht und dammfest. Perfekt für dramatische Spaziergänge im Dauerregen.', 2.00),
+(6, 'OptiBiber Vision™ – Taucherbrillen für jede Sehschwäche', 'Egal ob du Kurzsicht-Biber bist („Ist das ein Baum oder ein Stock?“) oder Weitsicht-Profi („Ich sehe den Baum schon, bevor er wächst“): OptiBiber Vision™ liefert kristallklare Sicht unter Wasser. Mit Anti-Beschlag-Beschichtung und stylischem „Ich weiß genau, was ich nage“-Look.', 2.00),
+(7, 'NeoNage Suit™ – Der Neoprenanzug für echte Profis', 'Maximale Beweglichkeit, minimale Kälte. Der NeoNage Suit™ hält dich warm, während du elegant durch Seen gleitest und nebenbei Infrastrukturprojekte startest. Sitzt wie eine zweite Haut – nur flauschiger. Für Biber, die auch im Winter keine Pause kennen.', 2.00),
+(8, 'HolzSnack Premium™ – Gourmet für Zwischendurch', 'Nicht jedes Holz ist gleich. HolzSnack Premium™ bietet sorgfältig ausgewählte Hölzer mit feinen Geschmacksnoten von „frisch gefallen“ bis „leicht morsch, aber interessant“. Der perfekte Snack für anspruchsvolle Nager mit Sinn für Qualität.', 2.00),
+(9, 'DammPlaner Pro™ – Bauleitung leicht gemacht', 'Warum improvisieren, wenn man professionell planen kann? DammPlaner Pro™ hilft dir, Strömungen zu analysieren, Holz optimal zu platzieren und deinen Damm architektonisch auf das nächste Level zu heben. Enthält keine Technik – nur extrem gutes Bauchgefühl.', 2.00),
+(10, 'SchwanzPolish Ultra™ – Glanzleistung am Heck', 'SchwanzPolish Ultra™ – Glanzleistung am Heck', 2.00),
+(101, 'Kuschelbiber - Premium-Wärmeservice mit Fellgaratie', 'Wenn dein Tag kälter war als ein Schwarzwaldsee im Februar, kommt der Kuschel-Biber™ ins Spiel. Mit zertifizierter Flauschigkeit (DIN-Norm: sehr weich) und eingebautem Knabber-Charme sorgt er für emotionale Stabilisierung innerhalb von 3–5 Umarmungen. Optional: beruhigendes Nagen an Tischbeinen für ASMR-Fans. Nebenwirkungen können spontane Glücksgefühle und irrationaler Holzbedarf sein.', 2.00),
+(102, 'Babysitterbiber: Kinderbetreuung mit Nagekompetenz', 'Warum einen gewöhnlichen Babysitter buchen, wenn du einen hochmotivierten Biber haben kannst? BabyBiber™ liest Gute-Nacht-Geschichten (hauptsächlich über Dämme), baut in Rekordzeit Spielburgen aus allem, was nicht niet- und nagelfest ist, und sorgt dafür, dass dein Kind nie wieder Angst vor Mathe hat (weil alles zu Holzprojekten wird). Achtung: Möbel können emotional gebunden werden.', 2.00),
+(103, 'Baubiber: wir machen dicht. Wirklich dicht', 'Du brauchst ein Haus? Wir liefern ein ökologisch optimiertes Meisterwerk aus Holz, Schlamm und unerschütterlicher Arbeitsmoral. BauBiber arbeitet rund um die Uhr, kennt keine Bauverzögerungen und akzeptiert als Bezahlung neben Geld auch respektvolles Nicken. USP: Unsere Häuser sind so stabil, dass selbst Nachbarn neidisch nagen würden.', 2.00),
+(104, 'Stalkerbiber: Diskret, flauschig, leicht auffällig', 'Du willst wissen, was dein Nachbar treibt? SpionBiber™ observiert mit maximaler Hingabe und minimaler Tarnung. Dank natürlicher Tarnfarbe „Holzbraun“ fügt er sich perfekt in jede Gartenlandschaft ein. Berichtserstattung erfolgt durch strategisch platzierte Nagespuren und bedeutungsschwere Blicke. Absolute Diskretion – außer wenn jemand Karotten dabei hat.', 2.00),
+(105, ' Don Biberone – Problemlösung auf… kreative Weise', 'Wenn jemand „aus Versehen“ ständig deine Bäume fällt oder dein WLAN klaut, regelt Don Biberone das auf seine ganz eigene, völlig überzeichnete Cartoon-Art. Statt echter Gewalt gibt’s dramatische Showdowns mit intensiven Blickduellen, symbolischem Holzfällen und passiv-aggressiv platzierten Dämmen im Vorgarten. Ergebnis: Respekt, Verwirrung und ein leicht feuchter Rasen.', 2.00);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `warenkorb`
+--
+
+CREATE TABLE `warenkorb` (
+  `WID` int(10) UNSIGNED NOT NULL,
+  `KID` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `warenkorbinhalt`
+--
+
+CREATE TABLE `warenkorbinhalt` (
+  `Wposition` int(10) UNSIGNED NOT NULL,
+  `PID` int(11) UNSIGNED NOT NULL,
+  `WID` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indizes der exportierten Tabellen
+--
+
+--
+-- Indizes für die Tabelle `bestellungen`
+--
+ALTER TABLE `bestellungen`
+  ADD PRIMARY KEY (`BID`),
+  ADD UNIQUE KEY `BID` (`BID`),
+  ADD KEY `Kunde verlinkt` (`KID`),
+  ADD KEY `WID` (`WID`);
+
+--
+-- Indizes für die Tabelle `kunden`
+--
+ALTER TABLE `kunden`
+  ADD PRIMARY KEY (`KID`),
+  ADD UNIQUE KEY `Email` (`Email`),
+  ADD UNIQUE KEY `KID` (`KID`);
+
+--
+-- Indizes für die Tabelle `produkte`
+--
+ALTER TABLE `produkte`
+  ADD PRIMARY KEY (`PID`),
+  ADD UNIQUE KEY `PID` (`PID`);
+
+--
+-- Indizes für die Tabelle `warenkorb`
+--
+ALTER TABLE `warenkorb`
+  ADD PRIMARY KEY (`WID`),
+  ADD UNIQUE KEY `WID` (`WID`),
+  ADD KEY `KID` (`KID`);
+
+--
+-- Indizes für die Tabelle `warenkorbinhalt`
+--
+ALTER TABLE `warenkorbinhalt`
+  ADD PRIMARY KEY (`Wposition`),
+  ADD UNIQUE KEY `Wposition` (`Wposition`),
+  ADD KEY `Produkte verlinkt` (`PID`),
+  ADD KEY `warenkorb verlinkt` (`WID`);
+
+--
+-- AUTO_INCREMENT für exportierte Tabellen
+--
+
+--
+-- AUTO_INCREMENT für Tabelle `bestellungen`
+--
+ALTER TABLE `bestellungen`
+  MODIFY `BID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `kunden`
+--
+ALTER TABLE `kunden`
+  MODIFY `KID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT für Tabelle `produkte`
+--
+ALTER TABLE `produkte`
+  MODIFY `PID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+
+--
+-- AUTO_INCREMENT für Tabelle `warenkorb`
+--
+ALTER TABLE `warenkorb`
+  MODIFY `WID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `warenkorbinhalt`
+--
+ALTER TABLE `warenkorbinhalt`
+  MODIFY `Wposition` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints der exportierten Tabellen
+--
+
+--
+-- Constraints der Tabelle `bestellungen`
+--
+ALTER TABLE `bestellungen`
+  ADD CONSTRAINT `Kunde verlinkt` FOREIGN KEY (`KID`) REFERENCES `kunden` (`KID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints der Tabelle `warenkorb`
+--
+ALTER TABLE `warenkorb`
+  ADD CONSTRAINT `warenkorb_ibfk_1` FOREIGN KEY (`KID`) REFERENCES `kunden` (`KID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints der Tabelle `warenkorbinhalt`
+--
+ALTER TABLE `warenkorbinhalt`
+  ADD CONSTRAINT `Produkte verlinkt` FOREIGN KEY (`PID`) REFERENCES `produkte` (`PID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `warenkorb verlinkt` FOREIGN KEY (`WID`) REFERENCES `warenkorb` (`WID`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
