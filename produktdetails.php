@@ -34,6 +34,36 @@
 </div>
 
 
+<?php 
+        require 'db_config.php';
+        $servername = "localhost";
+        $username = "root";
+        $passwort = "";
+        $datenbank = "bibershop";
+
+        $conn = mysqli_connect($servername, $username, $passwort, $datenbank);
+        if($conn->connect_error) {
+            die ("es funktioniert nicht..." . $conn->connect_error);
+        }
+        /*echo "connected" . "<br>";*/
+
+        $sql = "SELECT * FROM produkte";
+        $result = $conn->query($sql);
+        while ($i = $result->fetch_assoc()):
+            ?>
+            <a class="boxen" href="produktdetails.php?pid=<?= $i['PID'] ?>">
+            <!--<img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="<?= htmlspecialchars($i['Pname']) ?>">-->
+            <h4><?= htmlspecialchars($i['Pname']) ?></h4>
+            <!--<p><?= htmlspecialchars($i['Pbeschreibung']) ?></p>-->
+            </a>
+    <?php endwhile; 
+        mysqli_close($conn);
+    ?>
+
+
+</div>
+
+
 <div class="item" id="footer"> 
 	<div id="footerinhalt"> © 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj  </div>  
 </div>
