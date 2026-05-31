@@ -7,13 +7,7 @@
 </head>
 
 <body> 
-
-
- <div class="menuband">
-	<a id="logo" href="index.php"><img src="house.png" alt="Startseite" ></a>
-	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
-	<a href="login.php">Login</a> </div>
-</div>
+<?php include 'header.php'; ?>
 
 <div class="seiteninhalt">
 
@@ -75,11 +69,13 @@ foreach ($products as $p) {
         /* für jedes Produkt eine Box mit Bild, Name und Warenkorb Button */
         while ($i = $result->fetch_assoc()):
             ?>
-            <a class="boxen" href="produktdetails.php?pid=<?= $i['PID'] ?>">
+            <div class="boxen"><a href="produktdetails.php?pid=<?= $i['PID'] ?>">
             <img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="kein Bild verfügbar">
             <p><?= htmlspecialchars($i['Pname']) ?></p>
-            <button> In den Warenkorb</button>
             </a>
+            <button> In den Warenkorb</button> 
+            </div>  
+            
     <?php endwhile; 
         mysqli_close($conn);
     ?>
@@ -100,9 +96,7 @@ foreach ($products as $p) {
 <script src="script.js"></script>
 
 
-<div class="item" id="footer"> 
-			<div id="footerinhalt"><br>© 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj <br> <br> 	<a href="Impressum.html">IMPRESSUM</a> <br>  </div>
-</div>
+<?php include 'footer.php'; ?>
 
 </body>
 </html>
