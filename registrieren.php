@@ -7,6 +7,8 @@
 </head>
 
 <body> 
+<?php include 'header.php'; ?>
+
 <div class="container">
     <div class="form-box" id="registrieren-form">
         <!-- Seite mit DB verknüpfen -->
@@ -68,5 +70,6 @@
         </form>
     </div>
 </div>
+<?php include 'footer.php'; ?>
 </body>
 </html>
