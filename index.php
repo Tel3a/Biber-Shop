@@ -13,6 +13,7 @@
 	<a id="logo" href="index.php"><img src="biber.svg" alt="Startseite" ></a>
 	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
 	<a href="login.php">Konto</a> </div>
+	<a href="warenkorb.php">Warenkorb</a>
 </div>
 
 
