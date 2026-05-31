@@ -9,11 +9,7 @@
 <body> 
 
 
- <div class="menuband">
-	<a id="logo" href="index.php"><img src="house.png" alt="Startseite" ></a>
-	<div menuoptionen> <a  href="kaufen.php">Kaufen</a>
-	<a href="warenkorb.php">Warenkorb (0)</a> </div>
-</div>
+<?php include 'header.php'; ?>
 
 <div class="seiteninhalt">
 
