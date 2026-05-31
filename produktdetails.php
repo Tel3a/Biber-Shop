@@ -17,8 +17,7 @@
 <div class="seiteninhalt">
 
 
-
-<div class="detailfotos"> 
+<!--<div class="detailfotos"> 
 	<img src="shampoo.jpg" alt="photo1">
 	<img src="shampoo2.jpg" alt="photo1">
 	<img src="shampoo3.jpg" alt="photo1">
@@ -28,7 +27,8 @@
 	<p>10,00 €</p>
 	<button type="submit">In den Warenkorb</button>
 	<p>Beschreibung des Produkts</p>
-</div>
+</div> -->
+
 
 
 </div>
@@ -47,16 +47,34 @@
         }
         /*echo "connected" . "<br>";*/
 
-        $sql = "SELECT * FROM produkte";
-        $result = $conn->query($sql);
-        while ($i = $result->fetch_assoc()):
-            ?>
-            <a class="boxen" href="produktdetails.php?pid=<?= $i['PID'] ?>">
-            <!--<img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="<?= htmlspecialchars($i['Pname']) ?>">-->
-            <h4><?= htmlspecialchars($i['Pname']) ?></h4>
-            <!--<p><?= htmlspecialchars($i['Pbeschreibung']) ?></p>-->
-            </a>
-    <?php endwhile; 
+		$pid = isset($_GET['pid']) ? (int)$_GET['pid'] : 0;
+		if ($pid > 0) {
+			$sql = "SELECT * FROM produkte WHERE PID = ?";
+			$stmt = $conn->prepare($sql);
+			$stmt->bind_param("i", $pid);
+			$stmt->execute();
+			$result = $stmt->get_result();
+}
+
+
+       
+		while ($i = $result->fetch_assoc()):
+			?>
+			<div class="produktdetails">
+				<div class="detailfotos"> 
+					<img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="<?= htmlspecialchars($i['Pname']) ?>">
+					<img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="<?= htmlspecialchars($i['Pname']) ?>">
+					<img src="<?= htmlspecialchars($i['Pbild']) ?>" alt="<?= htmlspecialchars($i['Pname']) ?>">
+				</div> 
+
+				<div class="produktinfos">
+					<h4><?= htmlspecialchars($i['Pname']) ?></h4> 
+					<?= htmlspecialchars($i['Ppreis']) ?> € <br><br>
+					<button type="submit">In den Warenkorb</button>
+					<?= htmlspecialchars($i['Pbeschreibung']) ?>
+				</div>
+			</div>
+	<?php endwhile; 
         mysqli_close($conn);
     ?>
 
@@ -76,4 +94,3 @@
 
 </body>
 </html>
-
