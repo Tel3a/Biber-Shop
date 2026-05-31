@@ -87,7 +87,7 @@ foreach ($products as $p) {
     </article>
 <?php endwhile; ?>
 </div>
-<p><a href="warenkorb.php">Warenkorb ansehen</a></p>
+<p><a href="warenkorb.php">Warenkorb ansehen</a></p><br>
 
 <!-- Datenbank wieder schließen -->
         <?php mysqli_close($conn);
