@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	//Button 
 	var pfeil_button = ['<a href="#" class="pfeil" aria-label="Nach oben">',
-		'<img src="/pfeil.svg" alt="Nach oben" />',
+		'<img src="pfeil.svg" alt="Nach oben" />',
 	'</a>'].join("");
 	$("body").append(pfeil_button)
 
