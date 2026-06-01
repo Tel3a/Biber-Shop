@@ -30,10 +30,10 @@
         $result = $conn->query($sql);
         if($result && $result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-                $pid = urlencode($row['PID']);
+                $PID = urlencode($row['PID']);
                 $img = htmlspecialchars($row['Pbild']);
                 $alt = htmlspecialchars($row['Pname']);
-                echo '<a class="galleriefoto" href="produktdetails.php?pid='.$pid.'"><img src="'.$img.'" alt="'.$alt.'"></a>';
+                echo '<a class="galleriefoto" href="produktdetails.php?PID='.$PID.'"><img src="'.$img.'" alt="'.$alt.'"></a>';
             }
         }
         mysqli_close($conn);
