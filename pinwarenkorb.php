@@ -26,7 +26,20 @@ if (isset($_POST['PID'])) {
     }
 
     // Gast erlaubt, KID NULL bis Anmeldung
-    $KID = isset($_SESSION['KID']) ? (int) $_SESSION['KID'] : null;
+    $KID = null;
+    if (isset($_SESSION['KID'])) {
+        $candidateKID = (int) $_SESSION['KID'];
+        $checkKID = $conn->prepare("SELECT KID FROM kunden WHERE KID = ? LIMIT 1");
+        $checkKID->bind_param("i", $candidateKID);
+        $checkKID->execute();
+        $checkKID->store_result();
+        if ($checkKID->num_rows > 0) {
+            $KID = $candidateKID;
+        } else {
+            unset($_SESSION['KID']);
+        }
+        $checkKID->close();
+    }
 
     // Prüfe vorhandene Session-WID nur auf aktive Warenkörbe
     if (isset($_SESSION['WID'])) {
