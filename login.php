@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -13,7 +18,6 @@
 	    <?php
             require 'db_config.php';
             $conn = get_db_connection();
-            session_start();
             // Überprüfen, ob der Benutzer bereits eingeloggt ist
             if (isset($_SESSION['email'])) {
                 header("Location: index.php");
@@ -41,18 +45,25 @@
                         $_SESSION['KID'] = $row['KID'];
                         $_SESSION['email'] = $email;
                         $_SESSION['name'] = $row['Username'];
-                    // Warenkorb für den Kunden erstellen
-                    $werstellen = $conn->prepare("INSERT INTO warenkorb (KID) VALUES (?)");
-                    $werstellen->bind_param("i", $_SESSION['KID']);
-                    
-                    if ($werstellen->execute()) {
+                    // Warenkorb für den Kunden erstellen oder vorhandenen holen
+                    $check = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) ORDER BY WID DESC LIMIT 1");
+                    $check->bind_param("i", $_SESSION['KID']);
+                    $check->execute();
+                    $res = $check->get_result()->fetch_assoc();
+                    $check->close();
 
+                    if ($res && isset($res['WID'])) {
+                        $_SESSION['WID'] = (int) $res['WID'];
                     } else {
-                        // Fehler bei Warenkorb-Erstellung loggingn, aber Login trotzdem zulassen
-                        error_log("Fehler bei Warenkorb-Erstellung: " . $werstellen->error);
+                        $werstellen = $conn->prepare("INSERT INTO warenkorb (KID) VALUES (?)");
+                        $werstellen->bind_param("i", $_SESSION['KID']);
+                        if ($werstellen->execute()) {
+                            $_SESSION['WID'] = $conn->insert_id;
+                        } else {
+                            error_log("Fehler bei Warenkorb-Erstellung: " . $werstellen->error);
+                        }
+                        $werstellen->close();
                     }
-                    $werstellen->close();
-
 
                         header('Location: index.php');
                         exit();

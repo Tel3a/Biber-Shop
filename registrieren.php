@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -13,7 +14,9 @@
     <div class="form-box" id="registrieren-form">
         <!-- Seite mit DB verknüpfen -->
 	    <?php
+            session_start();
             require 'db_config.php';
+            $conn = get_db_connection();
             $error = "";
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $name = $_POST["name"] ?? "";
@@ -47,6 +50,17 @@
                         $obrichtigerUser = $conn->prepare('INSERT INTO Kunden (Username, Email, Passwort) VALUES (?, ?, ?)');
                         $obrichtigerUser->bind_param('sss', $name, $email, $pass_hash);
                         if ($obrichtigerUser->execute()) {
+                            $_SESSION['KID'] = $conn->insert_id;
+                            $_SESSION['email'] = $email;
+                            $_SESSION['name'] = $name;
+
+                            $werstellen = $conn->prepare("INSERT INTO warenkorb (KID) VALUES (?)");
+                            $werstellen->bind_param("i", $_SESSION['KID']);
+                            if ($werstellen->execute()) {
+                                $_SESSION['WID'] = $conn->insert_id;
+                            }
+                            $werstellen->close();
+
                             header('Location: index.php');
                             exit();
                         } else {

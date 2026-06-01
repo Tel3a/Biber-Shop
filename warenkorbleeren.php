@@ -15,8 +15,8 @@ $conn = get_db_connection();
 
 $KID = (int) $_SESSION['KID'];
 
-// WID holen
-$widStmt = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ?");
+// WID holen (nur aktive, noch nicht bestellte Warenkörbe)
+$widStmt = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) ORDER BY WID DESC LIMIT 1");
 $widStmt->bind_param("i", $KID);
 $widStmt->execute();
 $widRes = $widStmt->get_result();

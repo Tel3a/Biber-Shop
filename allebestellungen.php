@@ -52,8 +52,6 @@ while ($row = $result->fetch_assoc()) {
         'PID' => (int)$row['PID'],
         'Pname' => $row['Pname'],
         'Ppreis' => (float)$row['Ppreis'],
-        'Pbild' => $row['Pbild'],
-        'Menge' => (int)$row['Menge']
     ];
 }
 ?>
@@ -81,7 +79,6 @@ while ($row = $result->fetch_assoc()) {
                 <div class="bestellartikel">
                     <?php foreach ($order['items'] as $item): ?>
                         <article class="bestellposition">
-                            <img src="<?= htmlspecialchars($item['Pbild']) ?>" alt="<?= htmlspecialchars($item['Pname']) ?>">
                             <div>
                                 <h3><?= htmlspecialchars($item['Pname']) ?></h3>
                                 <p>Preis: <?= number_format($item['Ppreis'], 2, ',', '.') ?> €</p>

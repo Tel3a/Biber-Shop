@@ -99,8 +99,41 @@ $del->close();
 // Session-Warenkorb leeren
 $_SESSION['warenkorb'] = [];
 
-header("Location: warenkorb.php");
+//header("Location: warenkorb.php");
 $conn->close();
 exit;
 ?>
 
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Warenkorb</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<?php include 'header.php'; ?>
+
+<div class="warenkorbseite">
+    <div class="bestell-kopf">
+        <h1>Willkommen, <span><?= htmlspecialchars($_SESSION['name'] ?? $_SESSION['email'] ?? 'Gast') ?></span></h1>
+        <p>Die Bestellung ist abgeschlossen</p>
+    </div>
+
+        <div class="warenkorb-aktionen">
+
+            <form method="GET" action="allebestellungen.php">
+                <input type="hidden" name="WID" value="<?= $WID ?>">
+                <input type="hidden" name="KID" value="<?= $KID ?>">
+                <input type="hidden" name="gesamt" value="<?= $gesamt ?>">
+                <button type="submit" name="allebestellungen">Alle Bestellungen anzeigen</button>
+            </form>
+
+            <button onclick="window.location.href='logout.php'">Abmelden</button>
+        </div>
+
+</div>
+
+<?php include 'footer.php'; ?>
+</body>
+</html>

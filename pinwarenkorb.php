@@ -33,15 +33,35 @@ if (isset($_POST['PID'])) {
     $KID = (int) $_SESSION['KID'];
     echo "DEBUG KID: $KID<br>";
 
-    if (!isset($_SESSION['WID'])) {
-    $neuerw = $conn->prepare("INSERT INTO warenkorb (KID) VALUES (?)");
-    $neuerw->bind_param("i", $KID);
-    $neuerw->execute();
-    $_SESSION['WID'] = $conn->insert_id;
-    $neuerw->close();
-}
+    if (isset($_SESSION['WID'])) {
+        $checkWID = $conn->prepare("SELECT WID FROM warenkorb WHERE WID = ? AND KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) LIMIT 1");
+        $checkWID->bind_param("ii", $_SESSION['WID'], $KID);
+        $checkWID->execute();
+        $widResult = $checkWID->get_result();
+        if ($widResult->num_rows === 0) {
+            unset($_SESSION['WID']);
+        }
+        $checkWID->close();
+    }
 
-$WID = (int) $_SESSION['WID'];
+    if (!isset($_SESSION['WID'])) {
+        $existingCart = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) ORDER BY WID DESC LIMIT 1");
+        $existingCart->bind_param("i", $KID);
+        $existingCart->execute();
+        $existingRow = $existingCart->get_result()->fetch_assoc();
+        $existingCart->close();
+        if ($existingRow && isset($existingRow['WID'])) {
+            $_SESSION['WID'] = (int) $existingRow['WID'];
+        } else {
+            $neuerw = $conn->prepare("INSERT INTO warenkorb (KID) VALUES (?)");
+            $neuerw->bind_param("i", $KID);
+            $neuerw->execute();
+            $_SESSION['WID'] = $conn->insert_id;
+            $neuerw->close();
+        }
+    }
+
+    $WID = (int) $_SESSION['WID'];
 
     echo "DEBUG WID: $WID<br>";
 

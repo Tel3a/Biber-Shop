@@ -8,18 +8,68 @@
     require_once 'db_config.php';
     $conn = get_db_connection();
 
-
-    // Warenkorbanzahl mit Alias abfragen
-    $sqlWarenkorb = "SELECT COUNT(Wposition) AS anzahl FROM warenkorbinhalt JOIN warenkorb ON warenkorbinhalt.WID = warenkorb.WID WHERE warenkorb.KID = ?";
-    $anzahlinw = $conn->prepare($sqlWarenkorb);
-    $anzahlinw->bind_param("i", $_SESSION['KID']);
-    $anzahlinw->execute();
-    $resultWarenkorb = $anzahlinw->get_result();
-    $row = $resultWarenkorb->fetch_assoc();
-    $warenkorbInhalt = $row['anzahl'] ?? 0;
-
-    $warenkorb = $_SESSION['warenkorb'] ?? [];
+    // WID und KID aus Session holen
+    $WID = $_SESSION['WID'] ?? null;
+    $KID = $_SESSION['KID'] ?? null;
+    $warenkorb = [];
     $gesamt = 0;
+    $warenkorbInhalt = 0;
+
+    if ($KID !== null) {
+        if ($WID !== null) {
+            $validate = $conn->prepare("SELECT WID FROM warenkorb WHERE WID = ? AND KID = ? AND WID NOT IN (SELECT WID FROM bestellungen)");
+            $validate->bind_param("ii", $WID, $KID);
+            $validate->execute();
+            $validRes = $validate->get_result();
+            if ($validRes->num_rows === 0) {
+                unset($_SESSION['WID']);
+                $WID = null;
+            }
+            $validate->close();
+        }
+
+        if ($WID === null) {
+            $widStmt = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) ORDER BY WID DESC LIMIT 1");
+            $widStmt->bind_param("i", $KID);
+            $widStmt->execute();
+            $row = $widStmt->get_result()->fetch_assoc();
+            if ($row && isset($row['WID'])) {
+                $WID = (int) $row['WID'];
+                $_SESSION['WID'] = $WID;
+            }
+            $widStmt->close();
+        }
+
+        if ($WID !== null) {
+            $countStmt = $conn->prepare("SELECT COUNT(Wposition) AS anzahl FROM warenkorbinhalt WHERE WID = ?");
+            $countStmt->bind_param("i", $WID);
+            $countStmt->execute();
+            $row = $countStmt->get_result()->fetch_assoc();
+            $warenkorbInhalt = $row['anzahl'] ?? 0;
+            $countStmt->close();
+
+            if ($warenkorbInhalt > 0) {
+                $contentStmt = $conn->prepare(
+                    "SELECT produkte.PID, produkte.Pname, produkte.Ppreis
+                     FROM warenkorbinhalt 
+                     JOIN produkte ON warenkorbinhalt.PID = produkte.PID
+                     WHERE warenkorbinhalt.WID = ?"
+                );
+                $contentStmt->bind_param("i", $WID);
+                $contentStmt->execute();
+                $result = $contentStmt->get_result();
+                while ($item = $result->fetch_assoc()) {
+                    $warenkorb[] = [
+                        'PID' => (int) $item['PID'],
+                        'Pname' => $item['Pname'],
+                        'Ppreis' => (float) $item['Ppreis'],
+                    ];
+                }
+                $contentStmt->close();
+            }
+        }
+    }
+
 ?>
 
 
@@ -77,10 +127,7 @@
         <p><a href="kaufen.php">Weiter einkaufen</a></p>
 
         <div class="warenkorb-aktionen">
-            <form method="GET" action="bestellen.php">
-                <input type="hidden" name="WID" value="<?= $WID ?>">
-                <input type="hidden" name="KID" value="<?= $KID ?>">
-                <input type="hidden" name="gesamt" value="<?= $gesamt ?>">
+            <form method="POST" action="bestellen.php">
                 <button type="submit" name="bestellen">Bestellen</button>
             </form>
 
