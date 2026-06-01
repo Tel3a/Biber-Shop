@@ -81,9 +81,5 @@
 
 
 <?php include 'footer.php'; ?>
-
-<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="script.js"></script>
 </body>
 </html>
