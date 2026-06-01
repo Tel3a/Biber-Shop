@@ -7,100 +7,135 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 session_start();
 
 if (!isset($_SESSION['KID'])) {
-    die("Error: Bitte einloggen, bevor du bestellst.");
+    $_SESSION['post_login_redirect'] = 'bestellen.php';
+    header('Location: login.php');
+    exit();
 }
-
-$KID = (int) $_SESSION['KID'];
-$WID = null;
 
 require 'db_config.php';
 $conn = get_db_connection();
 
-$pinwarenkorb = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) ORDER BY WID DESC LIMIT 1");
-$pinwarenkorb->bind_param("i", $KID);
-$pinwarenkorb->execute();
-$cartRow = $pinwarenkorb->get_result()->fetch_assoc();
-$pinwarenkorb->close();
-if ($cartRow && isset($cartRow['WID'])) {
-    $WID = (int) $cartRow['WID'];
-    $_SESSION['WID'] = $WID;
+$KID = (int) $_SESSION['KID'];
+$bestellungserfolgreich = false;
+$bestellungsid = null;
+$bestellungspreis = null;
+$bestellungsdatum = null;
+$error = null;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bestellen'])) {
+
+    // Aktiven Warenkorb finden
+    $pinwarenkorb = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) ORDER BY WID DESC LIMIT 1");
+    $pinwarenkorb->bind_param("i", $KID);
+    $pinwarenkorb->execute();
+    $cartRow = $pinwarenkorb->get_result()->fetch_assoc();
+    $pinwarenkorb->close();
+
+    if (!$cartRow || !isset($cartRow['WID'])) {
+        $error = "Kein aktiver Warenkorb gefunden.";
+    } else {
+        $WID = (int) $cartRow['WID'];
+        $_SESSION['WID'] = $WID;
+
+        // ob warenkorb gültig
+        $validatew = $conn->prepare("SELECT WID FROM warenkorb WHERE WID = ? AND KID = ? LIMIT 1");
+        $validatew->bind_param("ii", $WID, $KID);
+        $validatew->execute();
+        if ($validatew->get_result()->num_rows === 0) {
+            $error = "Ungültige Warenkorb-ID oder kein Warenkorb für diesen Benutzer.";
+        }
+        $validatew->close();
+
+        if (!$error) {
+            // Warenkorb-Inhalt prüfen
+            $countCart = $conn->prepare("SELECT COUNT(*) AS anzahl FROM warenkorbinhalt WHERE WID = ?");
+            $countCart->bind_param("i", $WID);
+            $countCart->execute();
+            $countRow = $countCart->get_result()->fetch_assoc();
+            if (($countRow['anzahl'] ?? 0) === 0) {
+                $error = "Der Warenkorb ist leer.";
+            }
+            $countCart->close();
+        }
+
+        if (!$error) {
+            // Berechne Gesamtpreis
+            $gesamtStmt = $conn->prepare(
+                "SELECT SUM(p.Ppreis) AS gesamt FROM warenkorbinhalt w JOIN produkte p ON w.PID = p.PID WHERE w.WID = ?"
+            );
+            $gesamtStmt->bind_param("i", $WID);
+            $gesamtStmt->execute();
+            $gesamtRow = $gesamtStmt->get_result()->fetch_assoc();
+            $gesamtStmt->close();
+            $gesamt = (float) ($gesamtRow['gesamt'] ?? 0);
+
+            // Bestellung erstellen
+            $stmt = $conn->prepare("INSERT INTO bestellungen (WID, KID, Datum, Bpreis) VALUES (?, ?, NOW(), ?)");
+            $stmt->bind_param("iid", $WID, $KID, $gesamt);
+            $stmt->execute();
+            $bestellungsid = $conn->insert_id;
+            $bestellungspreis = $gesamt;
+            $stmt->close();
+
+            // Neuen Warenkorb erstellen
+            $neuwarenkorb = $conn->prepare("INSERT INTO warenkorb (KID) VALUES (?)");
+            $neuwarenkorb->bind_param("i", $KID);
+            $neuwarenkorb->execute();
+            $_SESSION['WID'] = $conn->insert_id;
+            $neuwarenkorb->close();
+
+            // Warenkorbinhalt beibehalten (nicht löschen) - bleibt als Archiv der Bestellung erhalten
+            // Session-Warenkorb leeren (UI-Cache), die DB-Positionen bleiben erhalten
+            $_SESSION['warenkorb'] = [];
+            $bestellungserfolgreich = true;
+            $bestellungsdatum = date('d.m.Y H:i:s');
+        }
+    }
 }
 
-if ($WID === null) {
-    die("Error: Kein aktiver Warenkorb gefunden.");
-}
-
-// Prüfen, ob KID in Session mit POST übereinstimmt
-if ($KID !== (int) $_SESSION['KID']) {
-    die("Error: Inkonsistente KID." . " Session KID: " . $_SESSION['KID'] . ", POST KID: " . $KID);
-}
-
-// Validieren, ob die WID zum eingeloggten Warenkorb gehört
-$validCart = $conn->prepare("SELECT WID FROM warenkorb WHERE WID = ? AND KID = ? LIMIT 1");
-$validCart->bind_param("ii", $WID, $KID);
-$validCart->execute();
-$validResult = $validCart->get_result();
-if ($validResult->num_rows === 0) {
-    die("Error: Ungültige Warenkorb-ID oder kein Warenkorb für diesen Benutzer.");
-}
-$validCart->close();
-
-// Prüfen, ob bereits eine Bestellung für diesen Warenkorb existiert
-$checkOrder = $conn->prepare("SELECT BID FROM bestellungen WHERE WID = ? LIMIT 1");
-$checkOrder->bind_param("i", $WID);
-$checkOrder->execute();
-$checkOrderResult = $checkOrder->get_result();
-if ($checkOrderResult->num_rows > 0) {
-    die("Error: Für diesen Warenkorb wurde bereits eine Bestellung abgeschickt.");
-}
-$checkOrder->close();
-
-// Prüfen, ob der Warenkorb noch Inhalte hat
-$countCart = $conn->prepare("SELECT COUNT(*) AS anzahl FROM warenkorbinhalt WHERE WID = ?");
-$countCart->bind_param("i", $WID);
-$countCart->execute();
-$countRow = $countCart->get_result()->fetch_assoc();
-if (($countRow['anzahl'] ?? 0) === 0) {
-    die("Error: Der Warenkorb ist leer.");
-}
-$countCart->close();
-
-// Berechne den aktuellen Gesamtpreis serverseitig
-$totalStmt = $conn->prepare(
-    "SELECT SUM(p.Ppreis) AS gesamt FROM warenkorbinhalt w JOIN produkte p ON w.PID = p.PID WHERE w.WID = ?"
-);
-$totalStmt->bind_param("i", $WID);
-$totalStmt->execute();
-$totalRow = $totalStmt->get_result()->fetch_assoc();
-$totalStmt->close();
-$gesamt = (float) ($totalRow['gesamt'] ?? 0);
-
-$stmt = $conn->prepare("INSERT INTO bestellungen (WID, KID, Datum, Bpreis) VALUES (?, ?, NOW(), ?)");
-$stmt->bind_param("iid", $WID, $KID, $gesamt);
-$stmt->execute();
-$stmt->close();
-
-// Direkt einen neuen Warenkorb für den Nutzer erstellen
-$newCart = $conn->prepare("INSERT INTO warenkorb (KID) VALUES (?)");
-$newCart->bind_param("i", $KID);
-if ($newCart->execute()) {
-    $_SESSION['WID'] = $conn->insert_id;
-} else {
-    error_log("Fehler bei neuer Warenkorb-Erstellung nach Bestellung: " . $newCart->error);
-}
-$newCart->close();
-
-// Optional: Warenkorb nach Bestellung leeren
-$del = $conn->prepare("DELETE FROM warenkorbinhalt WHERE WID = ?");
-$del->bind_param("i", $WID);
-$del->execute();
-$del->close();
-
-// Session-Warenkorb leeren
-$_SESSION['warenkorb'] = [];
-
-header("Location: warenkorb.php");
 $conn->close();
-exit;
 ?>
 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <title>Bestellung</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<?php include 'header.php'; ?>
+
+<div class="container">
+    <?php if ($bestellungserfolgreich): ?>
+        <div class="erfolgsseite">
+            <h1>✓ Bestellung erfolgreich!</h1>
+            <div class="bestellungsdetails">
+                <p><strong>Bestellungs-ID:</strong> <?= htmlspecialchars($bestellungsid) ?></p>
+                <p><strong>Gesamtpreis:</strong> <?= number_format($bestellungspreis, 2, ',', '.') ?> €</p>
+                <p><strong>Bestelldatum:</strong> <?= htmlspecialchars($bestellungsdatum) ?></p>
+            </div>
+            <div class="bestellungsaktionen">
+                <button onclick="window.location.href='kaufen.php'">Weiter einkaufen</button>
+                <button onclick="window.location.href='allebestellungen.php'">Meine Bestellungen</button>
+                <button onclick="window.location.href='warenkorb.php'">Zum Warenkorb</button>
+                <button onclick="window.location.href='logout.php'">Abmelden</button>
+            </div>
+        </div>
+    <?php elseif ($error): ?>
+        <div class="fehlerseite">
+            <h1>✗ Fehler</h1>
+            <p><?= htmlspecialchars($error) ?></p>
+            <button onclick="window.location.href='warenkorb.php'">Zurück zum Warenkorb</button>
+        </div>
+    <?php else: ?>
+        <div class="seite-leer">
+            <p>Um die Bestellung abzuschließe, gehen Sie zum Warenkorb.</p>
+            <button onclick="window.location.href='warenkorb.php'">Zum Warenkorb</button>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php include 'footer.php'; ?>
+</body>
+</html>
