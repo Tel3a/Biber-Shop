@@ -8,34 +8,30 @@ session_start();
 require 'db_config.php';
 $conn = get_db_connection();
 
-echo "pinwarenkorb.php geladen<br>";
-echo "POST: ";
-var_dump($_POST);
-echo "<br>";
+// Debug output 
+// echo "pinwarenkorb.php geladen<br>";
+// echo "POST: "; var_dump($_POST); echo "<br>";
 
 if (isset($_POST['PID'])) {
-    echo "DEBUG: PID wurde gesendet: " . $_POST['PID'] . "<br>";
     $id = (int) $_POST['PID'];
 
     $stmt = $conn->prepare("SELECT Pname, Ppreis FROM produkte WHERE PID = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $produkt = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
 
     if (!$produkt) {
         die("DEBUG: Produkt nicht gefunden");
     }
 
-    if (!isset($_SESSION['KID'])) {
-        die("DEBUG: KID nicht in Session");
-    }
+    // Gast erlaubt, KID NULL bis Anmeldung
+    $KID = isset($_SESSION['KID']) ? (int) $_SESSION['KID'] : null;
 
-    $KID = (int) $_SESSION['KID'];
-    echo "DEBUG KID: $KID<br>";
-
+    // Prüfe vorhandene Session-WID nur auf aktive Warenkörbe
     if (isset($_SESSION['WID'])) {
-        $checkWID = $conn->prepare("SELECT WID FROM warenkorb WHERE WID = ? AND KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) LIMIT 1");
-        $checkWID->bind_param("ii", $_SESSION['WID'], $KID);
+        $checkWID = $conn->prepare("SELECT WID FROM warenkorb WHERE WID = ? AND WID NOT IN (SELECT WID FROM bestellungen) LIMIT 1");
+        $checkWID->bind_param("i", $_SESSION['WID']);
         $checkWID->execute();
         $widResult = $checkWID->get_result();
         if ($widResult->num_rows === 0) {
@@ -45,13 +41,25 @@ if (isset($_POST['PID'])) {
     }
 
     if (!isset($_SESSION['WID'])) {
-        $existingCart = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) ORDER BY WID DESC LIMIT 1");
-        $existingCart->bind_param("i", $KID);
-        $existingCart->execute();
-        $existingRow = $existingCart->get_result()->fetch_assoc();
-        $existingCart->close();
-        if ($existingRow && isset($existingRow['WID'])) {
-            $_SESSION['WID'] = (int) $existingRow['WID'];
+        if ($KID !== null) {
+            $existW = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) ORDER BY WID DESC LIMIT 1");
+            $existW->bind_param("i", $KID);
+            $existW->execute();
+            $existRow = $existW->get_result()->fetch_assoc();
+            $existW->close();
+            if ($existRow && isset($existRow['WID'])) {
+                $_SESSION['WID'] = (int) $existRow['WID'];
+            }
+        }
+    }
+
+    if (!isset($_SESSION['WID'])) {
+        if ($KID === null) {
+            $res = $conn->query("INSERT INTO warenkorb (KID) VALUES (NULL)");
+            if ($res === false) {
+                die("DB-Error: " . $conn->error);
+            }
+            $_SESSION['WID'] = $conn->insert_id;
         } else {
             $neuerw = $conn->prepare("INSERT INTO warenkorb (KID) VALUES (?)");
             $neuerw->bind_param("i", $KID);
@@ -63,25 +71,19 @@ if (isset($_POST['PID'])) {
 
     $WID = (int) $_SESSION['WID'];
 
-    echo "DEBUG WID: $WID<br>";
-
     $peinfuegen = $conn->prepare("INSERT INTO warenkorbinhalt (PID, WID) VALUES (?, ?)");
     $peinfuegen->bind_param("ii", $id, $WID);
     $peinfuegen->execute();
-    echo "DEBUG INSERT erfolgreich<br>";
     $peinfuegen->close();
 
-    if (!isset($_SESSION['warenkorb'])) {
-        $_SESSION['warenkorb'] = [];
-    }
+    $_SESSION['warenkorb'] = $_SESSION['warenkorb'] ?? [];
     $_SESSION['warenkorb'][] = [
         'PID' => $id,
         'Pname' => $produkt['Pname'],
-        'Ppreis' => $produkt['Ppreis']
+        'Ppreis' => $produkt['Ppreis'],
     ];
 }
 
 header("Location: warenkorb.php");
 exit;
 ?>
-
