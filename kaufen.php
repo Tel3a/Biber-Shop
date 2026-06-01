@@ -96,10 +96,6 @@ foreach ($products as $p) {
 
 
 
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="script.js"></script>
-
-
 <?php include 'footer.php'; ?>
 
 </body>
