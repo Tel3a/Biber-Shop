@@ -18,7 +18,7 @@ if (session_status() === PHP_SESSION_NONE) {
 	    <?php
             require 'db_config.php';
             $conn = get_db_connection();
-            // Überprüfen, ob der Benutzer bereits eingeloggt ist
+            // ist angemeldet?
             if (isset($_SESSION['email'])) {
                 header("Location: index.php");
                 exit();
@@ -45,7 +45,14 @@ if (session_status() === PHP_SESSION_NONE) {
                         $_SESSION['KID'] = $row['KID'];
                         $_SESSION['email'] = $email;
                         $_SESSION['name'] = $row['Username'];
-                    // Warenkorb für den Kunden erstellen oder vorhandenen holen
+                        // Wenn anonymer Warenkorb, dann KID
+                        if (isset($_SESSION['WID'])) {
+                            $assign = $conn->prepare("UPDATE warenkorb SET KID = ? WHERE WID = ? AND (KID IS NULL OR KID = 0)");
+                            $assign->bind_param("ii", $_SESSION['KID'], $_SESSION['WID']);
+                            $assign->execute();
+                            $assign->close();
+                        }
+                    // Warenkorb weiternutzen oder neu erstellen
                     $check = $conn->prepare("SELECT WID FROM warenkorb WHERE KID = ? AND WID NOT IN (SELECT WID FROM bestellungen) ORDER BY WID DESC LIMIT 1");
                     $check->bind_param("i", $_SESSION['KID']);
                     $check->execute();
@@ -64,8 +71,11 @@ if (session_status() === PHP_SESSION_NONE) {
                         }
                         $werstellen->close();
                     }
+                        //weiterleiten zur entsprechenden Seite
+                        $redirectTarget = $_SESSION['post_login_redirect'] ?? 'index.php';
+                        unset($_SESSION['post_login_redirect']);
 
-                        header('Location: index.php');
+                        header('Location: ' . $redirectTarget);
                         exit();
                     } else {
                         $error = "<h5>E-Mail oder Passwort falsch</h5>";
