@@ -27,10 +27,10 @@
 
     <div class="footerinhalt infos">
         <p>INFO</p><br>
-        <p><a href="widerrufsrecht.html">Widerrufsrecht</a></p>
-        <p><a href="datenschutz.html">Datenschutz</a></p>
-        <p><a href="impressum.html">Impressum</a></p>
-        <p><a href="agb.html">AGB</a></p>
+        <p><a href="Wiederufsrecht.php">Widerrufsrecht</a></p>
+        <p><a href="Datenschutz.php">Datenschutz</a></p>
+        <p><a href="Impressum.php">Impressum</a></p>
+        <p><a href="AGB.php">AGB</a></p>
     </div>
 
     <div class="footer-copyright">
