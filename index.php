@@ -44,39 +44,20 @@
 
 	<br><br><br>
 	
-	<h1>Shop und Produkte für Biber</h1> 
-	<h1>Willkommen auf dieser Seite!!</h1>
-
-	<!-- Datenbanken einbinden 
-    <?php
-        $servername = "localhost";
-        $username = "root";
-        $passwort = "";
-        $datenbank = "bibershop";
-
-        $conn = mysqli_connect($servername, $username, $passwort, $datenbank);
-        if($conn->connect_error) {
-            die ("es funktioniert nicht..." . $conn->connect_error);
-        }
-        echo "connected" . "<br>";
-
-        $sql = "SELECT * FROM produkte";
-        $result = $conn->query($sql);
-
-        if($result->num_rows > 0) {
-            while($i = $result->fetch_assoc()){
-                echo "PID: " . $i["PID"] . "<br>" . "<h4>" .  "<i>Name:</i> " . $i["Pname"] . "</h4>"  .  "<i>Beschreibung: </i>" . $i["Pbeschreibung"] . "<br><br><br><br>" ;
-            }
-        }
-        else{
-            echo "kein Kunde gefunden" . $conn->error;
-        }
-        
-        mysqli_close($conn);
-
-
-    ?>
--->
+	
+	<h1>Willkommen bei <i>Biber Bedarf</i></h1>
+    <h4>Dem Bibershop ihres Vertrauens</h4> 
+    <p>Wir lieben Biber — und genau deshalb haben wir diesen Shop gegründet. </p>
+    <p>Bei <i>Biber Bedarf</i> findest du alles rund um den Biber: von wichtigen Produkten bis hin Dienstleistungen von Bibern bei uns gibt es alles.
+    <p>Unsere Idee entstand aus der Begeisterung für diese faszinierenden Tiere und dem Wunsch, einen Ort zu schaffen wo jeder Biber sich woll fühlt.</p>
+    <p>Dabei achten wir auf:</p>
+    <p>- gute Qualität</p>
+    <p>- faire Preise</p>
+    <p>- einfache Bestellung</p>
+    <p>- freundlichen Service</p>
+    <p>Egal ob du nach einem Produkt für einen Biber suchst oder nach einer Dienstleistung von einem Biber — bei Biber Bedarf bist du genau richtig.</p>
+    Vielen Dank für deinen Besuch und viel Spaß beim Stöbern!
+    — Das Team von <i>Biber Bedarf</i> </p>
 </div>
 
 
