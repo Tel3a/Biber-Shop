@@ -101,14 +101,58 @@ format("opentype");
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: #ffffff;
   display: block;
   transition: 0.3s;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: #c6c6c6;
 }
+
+/* Grundlegende Formatierung der Navigation */
+.menue ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  background-color: #333;
+}
+
+/* Hauptmenüpunkte */
+.menue > ul > li {
+  position: relative; /* Wichtig für die korrekte Positionierung des Untermenüs */
+}
+
+.menue a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 15px 20px;
+  text-decoration: none;
+}
+
+.menue a:hover {
+  background-color: #111;
+}
+
+/* Untermenü standardmäßig verstecken */
+.menue .untermenue {
+  display: none;
+  position: absolute;
+  top: 100%; /* Platziert das Untermenü genau unter dem Hauptmenüpunkt */
+  left: 0;
+  background-color: #444;
+  min-width: 160px;
+  flex-direction: column;
+}
+
+/* Untermenü beim Hovern aufklappen */
+.menue > ul > li:hover .untermenue {
+  display: flex;
+}
+
+
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
@@ -162,26 +206,6 @@ format("opentype");
 	height: 24px;
 }
 
-/*#footer {
-    background-color: #1d1a1a;
-    color: #ffffff;
-    border-top: 4px solid #000000;
-    margin-top: auto;
-    min-height: 220px;
-    min-width: 100%;
-    bottom: 0;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-between;
-
-}
-
-.footerinhalt {
-    text-align: left;
-
-}*/
 #footer {
     background-color: #1d1a1a;
     color: #ffffff;
@@ -348,15 +372,13 @@ format("opentype");
     width: 100%;
     max-width: 280px;
     background: #fff;
-    border: 1px solid #e7e0d5;
-    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     display: flex;
     flex-direction: column;
     text-decoration: none;
     color: inherit;
+    text-align: left;
 }
 
 #produktgallerie .boxen:hover {
@@ -683,4 +705,45 @@ span {
     padding: 24px;	
     text-align: center;	
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);	
+}
+
+/* Filter-Buttons Styling */
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+    padding: 0 16px;
+    justify-content: center;
+}
+
+.filter-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #f0f0f0;
+    color: #1c281a;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.filter-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: #7494e9;
+    color: #fff;
+    border-color: #5f7ed6;
+}
+
+
+
+.dankebiber {
+    width: 100%;
 }

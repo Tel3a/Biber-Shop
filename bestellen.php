@@ -105,7 +105,8 @@ $conn->close();
 </head>
 <body>
 <?php include 'header.php'; ?>
-
+<div class="seiteninhalt">
+<img src="dankebiber.png" alt="Danke Biber" class="dankebiber">
 <div class="container">
     <?php if ($bestellungserfolgreich): ?>
         <div class="erfolgsseite">
@@ -135,7 +136,7 @@ $conn->close();
         </div>
     <?php endif; ?>
 </div>
-
+</div>
 <?php include 'footer.php'; ?>
 </body>
 </html>

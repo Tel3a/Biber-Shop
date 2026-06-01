@@ -24,8 +24,21 @@
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="kaufen.php">Zum Shop</a>
   <a href="#">Über uns</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+
+  <ul>
+    <li><a href="#">Startseite</a></li>
+    <li>
+      <a href="#">Dienstleistungen</a>
+      <ul class="untermenue">
+        <li><a href="#">Webdesign</a></li>
+        <li><a href="#">SEO</a></li>
+        <li><a href="#">Marketing</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Kontakt</a></li>
+  </ul>
+
+
 </div>
 
 

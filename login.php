@@ -84,21 +84,17 @@ $conn->close();
 
 <body> 
 <?php include 'header.php'; ?>
-<div class="container">
-    <div class="form-box" id="login-form">
+<div class=seiteninhalt>
+
+
         <?php if ($istangemeldet): ?>
             <!-- Willkommensseite für angemeldete Nutzer -->
-        <h1>Willkommen, <span><?= htmlspecialchars($_SESSION['name'] ?? $_SESSION['email'] ?? 'Gast') ?></span></h1>
-            <div class="warenkorb-kopf">
-                <p>Du bist bereits angemeldet.</p>
-                <div class="warenkorb-aktionen">
-                    <button onclick="window.location.href='index.php'">Zur Startseite</button>
-                    <button onclick="window.location.href='kaufen.php'">Zum Shop</button>
-                    <button onclick="window.location.href='warenkorb.php'">Zum Warenkorb</button>
-                    <button onclick="window.location.href='allebestellungen.php'">Meine Bestellungen</button>
-                    <button onclick="window.location.href='logout.php'">Abmelden</button>
-                </div>
-            </div>
+        <h1>Willkommen <span><?= htmlspecialchars($_SESSION['name'] ?? $_SESSION['email'] ?? 'Gast') ?></span></h1>
+        <p>Dies ist dein Benutzerkonto. Hier findest du all deine bisher getätigten Bestellungen (und kannst deine Daten verwalten).</p>
+        <button onclick="window.location.href='allebestellungen.php'">Meine Bestellungen</button>
+        <button onclick="window.location.href='logout.php'">Abmelden</button>
+             
+
         <?php else: ?>
             <!-- Login-Formular für nicht angemeldete Nutzer -->
             <h1>Login</h1>
@@ -110,9 +106,8 @@ $conn->close();
                 <?php echo $error ?>
             </form>
         <?php endif; ?>
-    </div>
-</div>
 
+</div>
 
 <?php include 'footer.php'; ?>
 

@@ -40,6 +40,8 @@ foreach ($products as $p) {
 </div>
 
 
+
+
 <div id="produktgallerie"> 
     <?php 
         require 'db_config.php';
@@ -54,7 +56,39 @@ foreach ($products as $p) {
         }
         /*echo "connected" . "<br>";*/
 
-        $sql = "SELECT * FROM produkte";
+        // Prüfe ob Art-Spalte existiert, wenn nicht, erstelle sie
+        $check_art = $conn->query("SHOW COLUMNS FROM produkte LIKE 'Art'");
+        if ($check_art->num_rows == 0) {
+            $conn->query("ALTER TABLE produkte ADD COLUMN Art VARCHAR(50) DEFAULT 'Sonstiges'");
+            // Kategorisiere Produkte
+            $categorize = [
+                "UPDATE produkte SET Art = 'Pflege' WHERE PID IN (1,2,3,4)",
+                "UPDATE produkte SET Art = 'Kleidung' WHERE PID IN (5,6,7)",
+                "UPDATE produkte SET Art = 'Lebensmittel' WHERE PID = 8",
+                "UPDATE produkte SET Art = 'Werkzeuge' WHERE PID = 9",
+                "UPDATE produkte SET Art = 'Services' WHERE PID IN (101,102,103,104,105)"
+            ];
+            foreach ($categorize as $sql) {
+                $conn->query($sql);
+            }
+        }
+
+        // Hole Filter aus URL-Parameter
+        $filter_art = isset($_GET['art']) ? $conn->real_escape_string($_GET['art']) : '';
+        
+        // SQL mit optionalem Filter
+        if ($filter_art) {
+            $sql = "SELECT * FROM produkte WHERE Art = '$filter_art'";
+        } else {
+            $sql = "SELECT * FROM produkte";
+        }
+        
+        // Hole alle verfügbaren Art-Kategorien
+        $art_result = $conn->query("SELECT DISTINCT Art FROM produkte ORDER BY Art");
+        $kategorien = [];
+        while ($row = $art_result->fetch_assoc()) {
+            $kategorien[] = $row['Art'];
+        }
         $result = $conn->query($sql);
 
         /* für jedes Produkt eine Box mit Bild, Name und Warenkorb Button */
@@ -68,8 +102,21 @@ foreach ($products as $p) {
         <?php endwhile; ?>
         */ ?>
 
+<!-- Filter-Buttons -->
+<div class="filter-buttons">
+    <a href="kaufen.php" class="filter-btn <?= !$filter_art ? 'active' : '' ?>">Alle Produkte</a>
+    <?php foreach ($kategorien as $kat): ?>
+        <a href="kaufen.php?art=<?= urlencode($kat) ?>" class="filter-btn <?= $filter_art === $kat ? 'active' : '' ?>">
+            <?= htmlspecialchars($kat) ?>
+        </a>
+    <?php endforeach; ?>
+</div>
+
 <!-- button für in den Warenkorb hinzufügen -->
 <!-- <h1>Product List</h1>-->
+
+<?php $result = $conn->query($sql); ?>
+
 <?php while ($row = $result->fetch_assoc()): ?>
     <article class="boxen">
         <a href="produktdetails.php?PID=<?= (int)$row['PID'] ?>">
@@ -86,6 +133,7 @@ foreach ($products as $p) {
         </form>
     </article>
 <?php endwhile; ?>
+
 </div>
 <p><a href="warenkorb.php">Warenkorb ansehen</a></p><br>
 
