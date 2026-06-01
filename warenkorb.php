@@ -12,6 +12,28 @@
     $gesamt = 0;
     $warenkorbInhalt = 0;
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['PID'])) {
+        $action = $_POST['action'];
+        $pid = (int) $_POST['PID'];
+
+        if ($WID !== null && in_array($action, ['increment', 'decrement'], true)) {
+            if ($action === 'increment') {
+                $addStmt = $conn->prepare("INSERT INTO warenkorbinhalt (PID, WID) VALUES (?, ?)");
+                $addStmt->bind_param("ii", $pid, $WID);
+                $addStmt->execute();
+                $addStmt->close();
+            } else {
+                $removeStmt = $conn->prepare("DELETE FROM warenkorbinhalt WHERE WID = ? AND PID = ? LIMIT 1");
+                $removeStmt->bind_param("ii", $WID, $pid);
+                $removeStmt->execute();
+                $removeStmt->close();
+            }
+        }
+
+        header('Location: warenkorb.php');
+        exit();
+    }
+
     if ($WID !== null) {
         if ($KID !== null) {
             $validate = $conn->prepare("SELECT WID FROM warenkorb WHERE WID = ? AND KID = ? AND WID NOT IN (SELECT WID FROM bestellungen)");
@@ -41,34 +63,42 @@
         $widStmt->close();
     }
 
-        if ($WID !== null) {
-            $countStmt = $conn->prepare("SELECT COUNT(Wposition) AS anzahl FROM warenkorbinhalt WHERE WID = ?");
-            $countStmt->bind_param("i", $WID);
-            $countStmt->execute();
-            $row = $countStmt->get_result()->fetch_assoc();
-            $warenkorbInhalt = $row['anzahl'] ?? 0;
-            $countStmt->close();
+    if ($WID !== null) {
+        $countStmt = $conn->prepare("SELECT COUNT(Wposition) AS anzahl FROM warenkorbinhalt WHERE WID = ?");
+        $countStmt->bind_param("i", $WID);
+        $countStmt->execute();
+        $row = $countStmt->get_result()->fetch_assoc();
+        $warenkorbInhalt = $row['anzahl'] ?? 0;
+        $countStmt->close();
 
-            if ($warenkorbInhalt > 0) {
-                $contentStmt = $conn->prepare(
-                    "SELECT produkte.PID, produkte.Pname, produkte.Ppreis
-                     FROM warenkorbinhalt 
-                     JOIN produkte ON warenkorbinhalt.PID = produkte.PID
-                     WHERE warenkorbinhalt.WID = ?"
-                );
-                $contentStmt->bind_param("i", $WID);
-                $contentStmt->execute();
-                $result = $contentStmt->get_result();
-                while ($item = $result->fetch_assoc()){
-                    $warenkorb[] = [
-                        'PID' => (int) $item['PID'],
-                        'Pname' => $item['Pname'],
-                        'Ppreis' => (float) $item['Ppreis'],
-                    ];
-                }
-                $contentStmt->close();
+        if ($warenkorbInhalt > 0) {
+            if (!isset($_SESSION['versandkosten'])) {
+                $_SESSION['versandkosten'] = rand(1, 100);
             }
+
+            $contentStmt = $conn->prepare(
+                "SELECT produkte.PID, produkte.Pname, produkte.Ppreis, COUNT(*) AS Menge
+                 FROM warenkorbinhalt 
+                 JOIN produkte ON warenkorbinhalt.PID = produkte.PID
+                 WHERE warenkorbinhalt.WID = ?
+                 GROUP BY produkte.PID, produkte.Pname, produkte.Ppreis"
+            );
+            $contentStmt->bind_param("i", $WID);
+            $contentStmt->execute();
+            $result = $contentStmt->get_result();
+            while ($item = $result->fetch_assoc()) {
+                $warenkorb[] = [
+                    'PID' => (int) $item['PID'],
+                    'Pname' => $item['Pname'],
+                    'Ppreis' => (float) $item['Ppreis'],
+                    'Menge' => (int) $item['Menge'],
+                ];
+            }
+            $contentStmt->close();
+        } else {
+            unset($_SESSION['versandkosten']);
         }
+    }
 
 ?>
 
@@ -82,10 +112,10 @@
 </head>
 <body>
 <?php include 'header.php'; ?>
-
+<div class="seiteninhalt">
 <div class="warenkorbseite">
     <div class="warenkorb-kopf">
-        <h1>Willkommen <span><?= htmlspecialchars($_SESSION['name'] ?? $_SESSION['email'] ?? 'Gast') ?></span></h1>
+        <h1>Willkommen, <span><?= htmlspecialchars($_SESSION['name'] ?? $_SESSION['email'] ?? 'Gast') ?></span></h1>
         <p>Dies ist dein Warenkorb</p>
     </div>
 
@@ -99,34 +129,49 @@
                 <input type="hidden" name="WID" value="<?= $WID ?>">
                 <input type="hidden" name="KID" value="<?= $KID ?>">
                 <input type="hidden" name="gesamt" value="<?= $gesamt ?>">
-                <button type="submit" name="allebestellungen">Bisherige Bestellungen</button>
+                <button type="submit" name="allebestellungen">Bisherige Bestellungen anzeigen</button>
             </form>
 
             <button onclick="window.location.href='logout.php'">Abmelden</button>
         </div>
     <?php else: ?>
+        <h2>Hier sind deine Produkte:</h2>
+
         <?php if ($warenkorb): ?>
             <table class="warenkorb-tabelle">
-
+                <tr>
+                    <th>Produkt</th>
+                    <th>Einzelpreis</th>
+                    <th>Menge</th>
+                    <th>Preis für Menge</th>
+                </tr>
                 <?php foreach ($warenkorb as $id => $item):
-                    $subtotal = $item['Ppreis'];
-                    $gesamt += $subtotal;
-
+                    $positionTotal = $item['Ppreis'] * $item['Menge'];
+                    $gesamt += $positionTotal;
                 ?>
                     <tr>
                         <td><?= htmlspecialchars($item['Pname']) ?></td>
                         <td><?= number_format($item['Ppreis'], 2, ',', '.') ?> €</td>
-                        <td colspan="2">
-                            <div>
-                                <button onclick="incrementQuantity(<?= $item['PID'] ?>)">+</button>
-                                <div id="quantity-<?= $item['PID'] ?>"><?= number_format($menge['Menge'] ?? 0, 0, ',', '.') ?></div>
-                                <button onclick="decrementQuantity(<?= $item['PID'] ?>)">-</button>
-                            </div>
+                        <td>
+                            <form method="post" class="quantity-form">
+                                <input type="hidden" name="PID" value="<?= $item['PID'] ?>">
+                                <button type="submit" name="action" value="decrement">−</button>
+                                <span class="quantity-value"><?= $item['Menge'] ?></span>
+                                <button type="submit" name="action" value="increment">+</button>
+                            </form>
                         </td>
+                        <td><?= number_format($positionTotal, 2, ',', '.') ?> €</td>
                     </tr>
-                    
-
                 <?php endforeach; ?>
+                <tr class="warenkorb-gesamt">
+                    <td colspan="3">Versandkosten</td>
+                    <td><?= number_format($_SESSION['versandkosten'] ?? 0, 2, ',', '.') ?> €</td>
+                </tr>
+                <?php $gesamt += ($_SESSION['versandkosten'] ?? 0); ?>
+                <tr class="warenkorb-gesamt">
+                    <td colspan="3">Gesamtpreis</td>
+                    <td><?= number_format($gesamt, 2, ',', '.') ?> €</td>
+                </tr>
             </table>
         <?php else: ?>
             <div class="warenkorb-leer">
@@ -136,35 +181,33 @@
 
         <?php endif; ?>
 
-<?php foreach ($items as $item): ?>
-    <button onclick="incrementQuantity(<?= $item['PID'] ?>)">+</button>
-    <div id="quantity-<?= $item['PID'] ?>"><?= number_format($item['Menge'], 0, ',', '.') ?></div>
-    <button onclick="decrementQuantity(<?= $item['PID'] ?>)" 
-            <?= $item['Menge'] <= 1 ? 'disabled' : '' ?>>-</button>
-<?php endforeach; ?>
+        <p><a href="kaufen.php">Weiter einkaufen</a></p>
+        <!-- macht das einen Unterschied?
+            <p><a class="einkaufbutton" href="kaufen.php">Weiter einkaufen</a></p>
+        -->
         <div class="warenkorb-aktionen">
             <form method="POST" action="bestellen.php">
                 <button type="submit" name="bestellen">Bestellen (<?= number_format($gesamt, 2, ',', '.') ?> €)</button>
             </form>
 
-            <p><a class="einkaufbutton" href="kaufen.php">Weiter einkaufen</a></p>
 
-            <!-- <form method="POST" action="warenkorbleeren.php">
+
+            <form method="POST" action="warenkorbleeren.php">
                 <button type="submit">Warenkorb leeren</button>
-            </form> 
+            </form>
 
             <form method="GET" action="allebestellungen.php">
                 <input type="hidden" name="WID" value="<?= $WID ?>">
                 <input type="hidden" name="KID" value="<?= $KID ?>">
                 <input type="hidden" name="gesamt" value="<?= $gesamt ?>">
-                <button type="submit" name="allebestellungen">Bisherige Bestellungen</button>
+                <button type="submit" name="allebestellungen">Bisherige Bestellungen anzeigen</button>
             </form>
 
-            <button onclick="window.location.href='logout.php'">Abmelden</button> -->
+            <button onclick="window.location.href='logout.php'">Abmelden</button>
         </div>
     <?php endif; ?>
 </div>
-
+</div>
 <?php include 'footer.php'; ?>
 </body>
 </html>

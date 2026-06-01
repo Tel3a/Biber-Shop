@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 01. Jun 2026 um 20:51
+-- Erstellungszeit: 01. Jun 2026 um 22:28
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -59,29 +59,30 @@ CREATE TABLE `produkte` (
   `Pname` varchar(255) NOT NULL,
   `Pbeschreibung` varchar(500) NOT NULL,
   `Ppreis` decimal(10,2) NOT NULL,
-  `Pbild` varchar(255) NOT NULL
+  `Pbild` varchar(255) NOT NULL,
+  `Art` varchar(50) DEFAULT 'Sonstiges'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Daten für Tabelle `produkte`
 --
 
-INSERT INTO `produkte` (`PID`, `Pname`, `Pbeschreibung`, `Ppreis`, `Pbild`) VALUES
-(1, ' Kamm-o-Biber™ – Für den perfekten Nage-Scheitel', 'Verabschiede dich von chaotischem Pelz und begrüße den „Ich hab mein Leben im Griff“-Look. Der Kamm-o-Biber™ gleitet sanft durch jedes noch so rebellische Fell und sorgt für aerodynamische Eleganz beim Schwimmen und Nagen. Bonus: erzeugt beim Durchziehen ein befriedigendes knrkrk-Geräusch.', 2.00, 'pfotos/kamm.png'),
-(2, 'BürstiBiber Deluxe – Flausch auf Industrieniveau', 'Diese Bürste bringt selbst den struppigsten Dammarbeiter zurück in die High-Society des Bibertums. Mit extra robusten Borsten aus… nun ja, wir fragen besser nicht woher. Ideal für Vorher-Nachher-Verwandlungen und spontane Wald-Fotoshootings. Achtung: Kann zu übermäßigem Selbstbewusstsein führen.', 2.00, 'pfotos/buerste.png'),
-(3, 'FellFix Pro™ – Glanz, der blendet', 'Ein Tropfen FellFix Pro™ und dein Pelz reflektiert mehr Licht als ein frisch polierter See bei Sonnenaufgang. Pflegt, schützt und macht dich zum Gesprächsthema am Flussufer. Enthält die geheime Formel „AquaFlausch+“. Niemand weiß, was drin ist – aber alle sind beeindruckt.', 2.00, 'pfotos/fellfix.png'),
-(4, 'ZahnFeil 3000 – Für den perfekten Biss', 'Nagen ist kein Hobby. Es ist eine Kunst. Mit der ZahnFeil 3000 bringst du deine Schneidezähne auf Präzisionsniveau. Für saubere Schnitte, stilvolles Knabbern und maximale Einschüchterung von rivalisierenden Bibern. Inklusive „Feil wie ein Profi“-Anleitung (besteht hauptsächlich aus: mehr nagen).', 2.00, 'pfotos/feile.png'),
-(5, 'Regenjacke Hydrobeaver™ - Weil… mehr Regen geht immer', '„Aber ich bin doch schon nass!“ – Falsch gedacht. Mit der Hydrobeaver™ bleibst du nicht nur trocken, sondern siehst dabei auch noch aus wie ein trendbewusster Wasseringenieur. Winddicht, wasserdicht und dammfest. Perfekt für dramatische Spaziergänge im Dauerregen.', 2.00, 'pfotos/regenjacke.png'),
-(6, 'OptiBiber Vision™ – Taucherbrillen für jede Sehschwäche', 'Egal ob du Kurzsicht-Biber bist („Ist das ein Baum oder ein Stock?“) oder Weitsicht-Profi („Ich sehe den Baum schon, bevor er wächst“): OptiBiber Vision™ liefert kristallklare Sicht unter Wasser. Mit Anti-Beschlag-Beschichtung und stylischem „Ich weiß genau, was ich nage“-Look.', 2.00, 'pfotos/taucherbrille.png'),
-(7, 'NeoNage Suit™ – Der Neoprenanzug für echte Profis', 'Maximale Beweglichkeit, minimale Kälte. Der NeoNage Suit™ hält dich warm, während du elegant durch Seen gleitest und nebenbei Infrastrukturprojekte startest. Sitzt wie eine zweite Haut – nur flauschiger. Für Biber, die auch im Winter keine Pause kennen.', 2.00, 'pfotos/neopren.png'),
-(8, 'HolzSnack Premium™ – Gourmet für Zwischendurch', 'Nicht jedes Holz ist gleich. HolzSnack Premium™ bietet sorgfältig ausgewählte Hölzer mit feinen Geschmacksnoten von „frisch gefallen“ bis „leicht morsch, aber interessant“. Der perfekte Snack für anspruchsvolle Nager mit Sinn für Qualität.', 2.00, 'pfotos/holzsnack.png'),
-(9, 'DammPlaner Pro™ – Bauleitung leicht gemacht', 'Warum improvisieren, wenn man professionell planen kann? DammPlaner Pro™ hilft dir, Strömungen zu analysieren, Holz optimal zu platzieren und deinen Damm architektonisch auf das nächste Level zu heben. Enthält keine Technik – nur extrem gutes Bauchgefühl.', 2.00, 'pfotos/dammplaner.png'),
-(10, 'SchwanzPolish Ultra™ – Glanzleistung am Heck', 'SchwanzPolish Ultra™ – Glanzleistung am Heck', 2.00, 'pfotos/schwanzpolish.png'),
-(101, 'Kuschelbiber - Premium-Wärmeservice mit Fellgaratie', 'Wenn dein Tag kälter war als ein Schwarzwaldsee im Februar, kommt der Kuschel-Biber™ ins Spiel. Mit zertifizierter Flauschigkeit (DIN-Norm: sehr weich) und eingebautem Knabber-Charme sorgt er für emotionale Stabilisierung innerhalb von 3–5 Umarmungen. Optional: beruhigendes Nagen an Tischbeinen für ASMR-Fans. Nebenwirkungen können spontane Glücksgefühle und irrationaler Holzbedarf sein.', 2.00, 'pfotos/kuschelnbiber.png'),
-(102, 'Babysitterbiber: Kinderbetreuung mit Nagekompetenz', 'Warum einen gewöhnlichen Babysitter buchen, wenn du einen hochmotivierten Biber haben kannst? BabyBiber™ liest Gute-Nacht-Geschichten (hauptsächlich über Dämme), baut in Rekordzeit Spielburgen aus allem, was nicht niet- und nagelfest ist, und sorgt dafür, dass dein Kind nie wieder Angst vor Mathe hat (weil alles zu Holzprojekten wird). Achtung: Möbel können emotional gebunden werden.', 2.00, 'pfotos/babysitterbiber.png'),
-(103, 'Baubiber: wir machen dicht. Wirklich dicht', 'Du brauchst ein Haus? Wir liefern ein ökologisch optimiertes Meisterwerk aus Holz, Schlamm und unerschütterlicher Arbeitsmoral. BauBiber arbeitet rund um die Uhr, kennt keine Bauverzögerungen und akzeptiert als Bezahlung neben Geld auch respektvolles Nicken. USP: Unsere Häuser sind so stabil, dass selbst Nachbarn neidisch nagen würden.', 2.00, 'pfotos/baubiber.png'),
-(104, 'Stalkerbiber: Diskret, flauschig, leicht auffällig', 'Du willst wissen, was dein Nachbar treibt? SpionBiber™ observiert mit maximaler Hingabe und minimaler Tarnung. Dank natürlicher Tarnfarbe „Holzbraun“ fügt er sich perfekt in jede Gartenlandschaft ein. Berichtserstattung erfolgt durch strategisch platzierte Nagespuren und bedeutungsschwere Blicke. Absolute Diskretion – außer wenn jemand Karotten dabei hat.', 2.00, 'pfotos/stalkerbiber.png'),
-(105, ' Don Biberone – Problemlösung auf… kreative Weise', 'Wenn jemand „aus Versehen“ ständig deine Bäume fällt oder dein WLAN klaut, regelt Don Biberone das auf seine ganz eigene, völlig überzeichnete Cartoon-Art. Statt echter Gewalt gibt’s dramatische Showdowns mit intensiven Blickduellen, symbolischem Holzfällen und passiv-aggressiv platzierten Dämmen im Vorgarten. Ergebnis: Respekt, Verwirrung und ein leicht feuchter Rasen.', 2.00, 'pfotos/donbiberone.jpg');
+INSERT INTO `produkte` (`PID`, `Pname`, `Pbeschreibung`, `Ppreis`, `Pbild`, `Art`) VALUES
+(1, ' Kamm-o-Biber™ – Für den perfekten Nage-Scheitel', 'Verabschiede dich von chaotischem Pelz und begrüße den „Ich hab mein Leben im Griff“-Look. Der Kamm-o-Biber™ gleitet sanft durch jedes noch so rebellische Fell und sorgt für aerodynamische Eleganz beim Schwimmen und Nagen. Bonus: erzeugt beim Durchziehen ein befriedigendes knrkrk-Geräusch.', 2.00, 'pfotos/kamm.png', 'Pflege'),
+(2, 'BürstiBiber Deluxe – Flausch auf Industrieniveau', 'Diese Bürste bringt selbst den struppigsten Dammarbeiter zurück in die High-Society des Bibertums. Mit extra robusten Borsten aus… nun ja, wir fragen besser nicht woher. Ideal für Vorher-Nachher-Verwandlungen und spontane Wald-Fotoshootings. Achtung: Kann zu übermäßigem Selbstbewusstsein führen.', 2.00, 'pfotos/buerste.png', 'Pflege'),
+(3, 'FellFix Pro™ – Glanz, der blendet', 'Ein Tropfen FellFix Pro™ und dein Pelz reflektiert mehr Licht als ein frisch polierter See bei Sonnenaufgang. Pflegt, schützt und macht dich zum Gesprächsthema am Flussufer. Enthält die geheime Formel „AquaFlausch+“. Niemand weiß, was drin ist – aber alle sind beeindruckt.', 2.00, 'pfotos/fellfix.png', 'Pflege'),
+(4, 'ZahnFeil 3000 – Für den perfekten Biss', 'Nagen ist kein Hobby. Es ist eine Kunst. Mit der ZahnFeil 3000 bringst du deine Schneidezähne auf Präzisionsniveau. Für saubere Schnitte, stilvolles Knabbern und maximale Einschüchterung von rivalisierenden Bibern. Inklusive „Feil wie ein Profi“-Anleitung (besteht hauptsächlich aus: mehr nagen).', 2.00, 'pfotos/feile.png', 'Pflege'),
+(5, 'Regenjacke Hydrobeaver™ - Weil… mehr Regen geht immer', '„Aber ich bin doch schon nass!“ – Falsch gedacht. Mit der Hydrobeaver™ bleibst du nicht nur trocken, sondern siehst dabei auch noch aus wie ein trendbewusster Wasseringenieur. Winddicht, wasserdicht und dammfest. Perfekt für dramatische Spaziergänge im Dauerregen.', 2.00, 'pfotos/regenjacke.png', 'Kleidung'),
+(6, 'OptiBiber Vision™ – Taucherbrillen für jede Sehschwäche', 'Egal ob du Kurzsicht-Biber bist („Ist das ein Baum oder ein Stock?“) oder Weitsicht-Profi („Ich sehe den Baum schon, bevor er wächst“): OptiBiber Vision™ liefert kristallklare Sicht unter Wasser. Mit Anti-Beschlag-Beschichtung und stylischem „Ich weiß genau, was ich nage“-Look.', 2.00, 'pfotos/taucherbrille.png', 'Kleidung'),
+(7, 'NeoNage Suit™ – Der Neoprenanzug für echte Profis', 'Maximale Beweglichkeit, minimale Kälte. Der NeoNage Suit™ hält dich warm, während du elegant durch Seen gleitest und nebenbei Infrastrukturprojekte startest. Sitzt wie eine zweite Haut – nur flauschiger. Für Biber, die auch im Winter keine Pause kennen.', 2.00, 'pfotos/neopren.png', 'Kleidung'),
+(8, 'HolzSnack Premium™ – Gourmet für Zwischendurch', 'Nicht jedes Holz ist gleich. HolzSnack Premium™ bietet sorgfältig ausgewählte Hölzer mit feinen Geschmacksnoten von „frisch gefallen“ bis „leicht morsch, aber interessant“. Der perfekte Snack für anspruchsvolle Nager mit Sinn für Qualität.', 2.00, 'pfotos/holzsnack.png', 'Lebensmittel'),
+(9, 'DammPlaner Pro™ – Bauleitung leicht gemacht', 'Warum improvisieren, wenn man professionell planen kann? DammPlaner Pro™ hilft dir, Strömungen zu analysieren, Holz optimal zu platzieren und deinen Damm architektonisch auf das nächste Level zu heben. Enthält keine Technik – nur extrem gutes Bauchgefühl.', 2.00, 'pfotos/dammplaner.png', 'Werkzeuge'),
+(10, 'SchwanzPolish Ultra™ – Glanzleistung am Heck', 'Der oft unterschätzte Held: dein Schwanz. Mit SchwanzPolish Ultra™ bringst du ihn auf Hochglanz und verbesserst gleichzeitig deine Signalwirkung beim Wasserklatschen. Für klare Kommunikation und stilvolle Dramaturgie im Biberalltag.\nDer oft unterschätzte Held: dein Schwanz. Mit SchwanzPolish Ultra™ bringst du ihn auf Hochglanz und verbesserst gleichzeitig deine Signalwirkung beim Wasserklatschen. Für klare Kommunikation und stilvolle Dramaturgie im Biberalltag.\n', 2.00, 'pfotos/schwanzpolish.png', 'Sonstiges'),
+(101, 'Kuschelbiber - Premium-Wärmeservice mit Fellgaratie', 'Wenn dein Tag kälter war als ein Schwarzwaldsee im Februar, kommt der Kuschel-Biber™ ins Spiel. Mit zertifizierter Flauschigkeit (DIN-Norm: sehr weich) und eingebautem Knabber-Charme sorgt er für emotionale Stabilisierung innerhalb von 3–5 Umarmungen. Optional: beruhigendes Nagen an Tischbeinen für ASMR-Fans. Nebenwirkungen können spontane Glücksgefühle und irrationaler Holzbedarf sein.', 2.00, 'pfotos/kuschelnbiber.png', 'Services'),
+(102, 'Babysitterbiber: Kinderbetreuung mit Nagekompetenz', 'Warum einen gewöhnlichen Babysitter buchen, wenn du einen hochmotivierten Biber haben kannst? BabyBiber™ liest Gute-Nacht-Geschichten (hauptsächlich über Dämme), baut in Rekordzeit Spielburgen aus allem, was nicht niet- und nagelfest ist, und sorgt dafür, dass dein Kind nie wieder Angst vor Mathe hat (weil alles zu Holzprojekten wird). Achtung: Möbel können emotional gebunden werden.', 2.00, 'pfotos/babysitterbiber.png', 'Services'),
+(103, 'Baubiber: wir machen dicht. Wirklich dicht', 'Du brauchst ein Haus? Wir liefern ein ökologisch optimiertes Meisterwerk aus Holz, Schlamm und unerschütterlicher Arbeitsmoral. BauBiber arbeitet rund um die Uhr, kennt keine Bauverzögerungen und akzeptiert als Bezahlung neben Geld auch respektvolles Nicken. USP: Unsere Häuser sind so stabil, dass selbst Nachbarn neidisch nagen würden.', 2.00, 'pfotos/baubiber.png', 'Services'),
+(104, 'Stalkerbiber: Diskret, flauschig, leicht auffällig', 'Du willst wissen, was dein Nachbar treibt? SpionBiber™ observiert mit maximaler Hingabe und minimaler Tarnung. Dank natürlicher Tarnfarbe „Holzbraun“ fügt er sich perfekt in jede Gartenlandschaft ein. Berichtserstattung erfolgt durch strategisch platzierte Nagespuren und bedeutungsschwere Blicke. Absolute Diskretion – außer wenn jemand Karotten dabei hat.', 2.00, 'pfotos/stalkerbiber.png', 'Services'),
+(105, ' Don Biberone – Problemlösung auf… kreative Weise', 'Wenn jemand „aus Versehen“ ständig deine Bäume fällt oder dein WLAN klaut, regelt Don Biberone das auf seine ganz eigene, völlig überzeichnete Cartoon-Art. Statt echter Gewalt gibt’s dramatische Showdowns mit intensiven Blickduellen, symbolischem Holzfällen und passiv-aggressiv platzierten Dämmen im Vorgarten. Ergebnis: Respekt, Verwirrung und ein leicht feuchter Rasen.', 2.00, 'pfotos/donbiberone.jpg', 'Services');
 
 -- --------------------------------------------------------
 
@@ -158,13 +159,13 @@ ALTER TABLE `warenkorbinhalt`
 -- AUTO_INCREMENT für Tabelle `bestellungen`
 --
 ALTER TABLE `bestellungen`
-  MODIFY `BID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `BID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `kunden`
 --
 ALTER TABLE `kunden`
-  MODIFY `KID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `KID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `produkte`
@@ -176,13 +177,13 @@ ALTER TABLE `produkte`
 -- AUTO_INCREMENT für Tabelle `warenkorb`
 --
 ALTER TABLE `warenkorb`
-  MODIFY `WID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `WID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `warenkorbinhalt`
 --
 ALTER TABLE `warenkorbinhalt`
-  MODIFY `Wposition` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `Wposition` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints der exportierten Tabellen

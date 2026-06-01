@@ -206,6 +206,26 @@ format("opentype");
 	height: 24px;
 }
 
+/*#footer {
+    background-color: #1d1a1a;
+    color: #ffffff;
+    border-top: 4px solid #000000;
+    margin-top: auto;
+    min-height: 220px;
+    min-width: 100%;
+    bottom: 0;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.footerinhalt {
+    text-align: left;
+
+}*/
 #footer {
     background-color: #1d1a1a;
     color: #ffffff;
@@ -455,7 +475,7 @@ format("opentype");
 }
 .form-box {
 
-	margin: 0 auto;
+  margin: 0 auto;
   padding: 30px;
   background-color: #b9def1;
   border: 1px solid #000000;
@@ -605,7 +625,7 @@ span {
 .warenkorbseite {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 200px 20px;
+    padding: 30px 20px;
 }
 
 
@@ -663,6 +683,34 @@ span {
     font-weight: bold;
     font-size: 1.1rem;
     background: #faf7f2;
+}
+
+.quantity-form {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantity-form button {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e7e0d5;
+    border-radius: 10px;
+    background: #fff;
+    color: #1d1a1a;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.quantity-form button:hover {
+    background: #f4f2ef;
+    transform: translateY(-1px);
+}
+
+.quantity-value {
+    min-width: 36px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .warenkorb-aktionen {

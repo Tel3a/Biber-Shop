@@ -69,6 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bestellen'])) {
             $gesamtStmt->close();
             $gesamt = (float) ($gesamtRow['gesamt'] ?? 0);
 
+            // Versandkosten hinzufügen
+            $versandkosten = isset($_SESSION['versandkosten']) ? (float) $_SESSION['versandkosten'] : 0.0;
+            $gesamt += $versandkosten;
+
             // Bestellung erstellen
             $stmt = $conn->prepare("INSERT INTO bestellungen (WID, KID, Datum, Bpreis) VALUES (?, ?, NOW(), ?)");
             $stmt->bind_param("iid", $WID, $KID, $gesamt);
@@ -106,10 +110,10 @@ $conn->close();
 <body>
 <?php include 'header.php'; ?>
 <div class="seiteninhalt">
-<img src="dankebiber.png" alt="Danke Biber" class="dankebiber">
 <div class="container">
     <?php if ($bestellungserfolgreich): ?>
         <div class="erfolgsseite">
+            <img src="pfotos/dankebiber.png" alt="Danke Biber" class="dankebiber">
             <h1>✓ Bestellung erfolgreich!</h1>
             <div class="bestellungsdetails">
                 <p><strong>Bestellungs-ID:</strong> <?= htmlspecialchars($bestellungsid) ?></p>

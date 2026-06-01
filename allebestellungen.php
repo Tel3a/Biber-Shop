@@ -18,6 +18,7 @@ $sql = "
     SELECT 
         bestellungen.BID,
         bestellungen.Datum,
+        bestellungen.Bpreis,
         warenkorb.WID,
         warenkorbinhalt.PID,
         produkte.Pname,
@@ -44,6 +45,7 @@ while ($row = $result->fetch_assoc()) {
         $orders[$bid] = [
             'Datum' => $row['Datum'],
             'WID' => (int)$row['WID'],
+            'Bestellpreis' => (float) $row['Bpreis'],
             'items' => []
         ];
     }
@@ -101,8 +103,8 @@ while ($row = $result->fetch_assoc()) {
                             </tr>
                         <?php endforeach; ?>
                         <tr class="warenkorb-gesamt">
-                            <td>Bestellsumme</td>
-                            <td><?= number_format($orderTotal, 2, ',', '.') ?> €</td>
+                            <td>Bestellsumme (inkl. Versand)</td>
+                            <td><?= number_format($order['Bestellpreis'], 2, ',', '.') ?> €</td>
                         </tr>
                     </tbody>
                 </table>
