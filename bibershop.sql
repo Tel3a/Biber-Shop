@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 31. Mai 2026 um 22:39
+-- Erstellungszeit: 01. Jun 2026 um 20:51
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -81,7 +81,7 @@ INSERT INTO `produkte` (`PID`, `Pname`, `Pbeschreibung`, `Ppreis`, `Pbild`) VALU
 (102, 'Babysitterbiber: Kinderbetreuung mit Nagekompetenz', 'Warum einen gewöhnlichen Babysitter buchen, wenn du einen hochmotivierten Biber haben kannst? BabyBiber™ liest Gute-Nacht-Geschichten (hauptsächlich über Dämme), baut in Rekordzeit Spielburgen aus allem, was nicht niet- und nagelfest ist, und sorgt dafür, dass dein Kind nie wieder Angst vor Mathe hat (weil alles zu Holzprojekten wird). Achtung: Möbel können emotional gebunden werden.', 2.00, 'pfotos/babysitterbiber.png'),
 (103, 'Baubiber: wir machen dicht. Wirklich dicht', 'Du brauchst ein Haus? Wir liefern ein ökologisch optimiertes Meisterwerk aus Holz, Schlamm und unerschütterlicher Arbeitsmoral. BauBiber arbeitet rund um die Uhr, kennt keine Bauverzögerungen und akzeptiert als Bezahlung neben Geld auch respektvolles Nicken. USP: Unsere Häuser sind so stabil, dass selbst Nachbarn neidisch nagen würden.', 2.00, 'pfotos/baubiber.png'),
 (104, 'Stalkerbiber: Diskret, flauschig, leicht auffällig', 'Du willst wissen, was dein Nachbar treibt? SpionBiber™ observiert mit maximaler Hingabe und minimaler Tarnung. Dank natürlicher Tarnfarbe „Holzbraun“ fügt er sich perfekt in jede Gartenlandschaft ein. Berichtserstattung erfolgt durch strategisch platzierte Nagespuren und bedeutungsschwere Blicke. Absolute Diskretion – außer wenn jemand Karotten dabei hat.', 2.00, 'pfotos/stalkerbiber.png'),
-(105, ' Don Biberone – Problemlösung auf… kreative Weise', 'Wenn jemand „aus Versehen“ ständig deine Bäume fällt oder dein WLAN klaut, regelt Don Biberone das auf seine ganz eigene, völlig überzeichnete Cartoon-Art. Statt echter Gewalt gibt’s dramatische Showdowns mit intensiven Blickduellen, symbolischem Holzfällen und passiv-aggressiv platzierten Dämmen im Vorgarten. Ergebnis: Respekt, Verwirrung und ein leicht feuchter Rasen.', 2.00, 'shampoo.png');
+(105, ' Don Biberone – Problemlösung auf… kreative Weise', 'Wenn jemand „aus Versehen“ ständig deine Bäume fällt oder dein WLAN klaut, regelt Don Biberone das auf seine ganz eigene, völlig überzeichnete Cartoon-Art. Statt echter Gewalt gibt’s dramatische Showdowns mit intensiven Blickduellen, symbolischem Holzfällen und passiv-aggressiv platzierten Dämmen im Vorgarten. Ergebnis: Respekt, Verwirrung und ein leicht feuchter Rasen.', 2.00, 'pfotos/donbiberone.jpg');
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,7 @@ INSERT INTO `produkte` (`PID`, `Pname`, `Pbeschreibung`, `Ppreis`, `Pbild`) VALU
 
 CREATE TABLE `warenkorb` (
   `WID` int(10) UNSIGNED NOT NULL,
-  `KID` int(10) UNSIGNED NOT NULL
+  `KID` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -117,7 +117,7 @@ ALTER TABLE `bestellungen`
   ADD PRIMARY KEY (`BID`),
   ADD UNIQUE KEY `BID` (`BID`),
   ADD KEY `Kunde verlinkt` (`KID`),
-  ADD KEY `WID` (`WID`);
+  ADD KEY `warenkorb bestellung verlinkt` (`WID`);
 
 --
 -- Indizes für die Tabelle `kunden`
@@ -158,13 +158,13 @@ ALTER TABLE `warenkorbinhalt`
 -- AUTO_INCREMENT für Tabelle `bestellungen`
 --
 ALTER TABLE `bestellungen`
-  MODIFY `BID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `BID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT für Tabelle `kunden`
 --
 ALTER TABLE `kunden`
-  MODIFY `KID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `KID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT für Tabelle `produkte`
@@ -176,13 +176,13 @@ ALTER TABLE `produkte`
 -- AUTO_INCREMENT für Tabelle `warenkorb`
 --
 ALTER TABLE `warenkorb`
-  MODIFY `WID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `WID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT für Tabelle `warenkorbinhalt`
 --
 ALTER TABLE `warenkorbinhalt`
-  MODIFY `Wposition` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `Wposition` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- Constraints der exportierten Tabellen
@@ -192,7 +192,8 @@ ALTER TABLE `warenkorbinhalt`
 -- Constraints der Tabelle `bestellungen`
 --
 ALTER TABLE `bestellungen`
-  ADD CONSTRAINT `Kunde verlinkt` FOREIGN KEY (`KID`) REFERENCES `kunden` (`KID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Kunde verlinkt` FOREIGN KEY (`KID`) REFERENCES `kunden` (`KID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `warenkorb bestellung verlinkt` FOREIGN KEY (`WID`) REFERENCES `warenkorb` (`WID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `warenkorb`
@@ -211,8 +212,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-ALTER TABLE warenkorbinhalt 
-ADD Menge INT NOT NULL 
-DEFAULT 1
-CHECK (Menge >= 1);
