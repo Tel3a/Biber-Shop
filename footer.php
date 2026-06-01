@@ -20,7 +20,7 @@
         <p><a href="mailto:info@bibershop.de">info@bibershop.de</a></p><br>
         <p>Öffnungszeiten</p>
         <p>Mo - Fr 12:71 - 12:83 Uhr</p>
-        <p>Samstag: 02:60 - 03:00 Uhr</p><br>
+        <p>Sa 02:60 - 03:00 Uhr</p><br>
         <p>Adresse</p>
         <p>Biberstraße 1, 12345 Biberstadt</p>
     </div>
@@ -30,10 +30,14 @@
         <p><a href="widerrufsrecht.html">Widerrufsrecht</a></p>
         <p><a href="datenschutz.html">Datenschutz</a></p>
         <p><a href="impressum.html">Impressum</a></p>
-        <p><a href="agb.html">AGB & Kundeninformationen</a></p>
+        <p><a href="agb.html">AGB</a></p>
     </div>
 
     <div class="footer-copyright">
        <p>© 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj</p>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="script.js"></script>
