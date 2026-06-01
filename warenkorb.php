@@ -94,6 +94,15 @@
             <h2>Dein Warenkorb ist leer</h2>
             <p>Füge Produkte hinzu, um sie hier zu sehen!</p>
             <button onclick="window.location.href='kaufen.php'">Zum Shop</button>
+            
+            <form method="GET" action="allebestellungen.php">
+                <input type="hidden" name="WID" value="<?= $WID ?>">
+                <input type="hidden" name="KID" value="<?= $KID ?>">
+                <input type="hidden" name="gesamt" value="<?= $gesamt ?>">
+                <button type="submit" name="allebestellungen">Alle Bestellungen anzeigen</button>
+            </form>
+
+            <button onclick="window.location.href='logout.php'">Abmelden</button>
         </div>
     <?php else: ?>
         <h2>Hier sind deine Produkte:</h2>
@@ -122,6 +131,8 @@
             <div class="warenkorb-leer">
                 <p>Dein Warenkorb ist leer.</p>
             </div>
+            <p><a href="kaufen.php">Weiter einkaufen</a></p>
+
         <?php endif; ?>
 
         <p><a href="kaufen.php">Weiter einkaufen</a></p>
