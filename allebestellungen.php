@@ -66,34 +66,55 @@ while ($row = $result->fetch_assoc()) {
 <body>
 <?php include 'header.php'; ?>
 <div class="seiteninhalt">
-    <h1>Vergangene Bestellungen</h1>
-
+<div class="warenkorbseite">
+    <div class="warenkorb-kopf">
+        <h1>Vergangene Bestellungen</h1>
+    </div>
     <?php if (empty($orders)): ?>
-        <p>Es wurden noch keine Bestellungen gefunden.</p>
+        <div class="warenkorb-leer">
+            <h2>Keine Bestellungen gefunden</h2>
+            <p>Du hast noch keine Bestellungen aufgegeben.</p>
+            <button onclick="window.location.href='kaufen.php'">Zum Shop</button>
+        </div>
     <?php else: ?>
         <?php foreach ($orders as $bid => $order): ?>
-            <section class="bestellung-block">
-                <h2>Bestellung #<?= $bid ?></h2>
-                <p>Datum: <?= htmlspecialchars($order['Datum'] ?? '') ?></p>
-
-                <div class="bestellartikel">
-                    <?php foreach ($order['items'] as $item): ?>
-                        <article class="bestellposition">
-                            <div>
-                                <h3><?= htmlspecialchars($item['Pname'] ?? 'Unbekannt') ?></h3>
-                                <p>Preis: <?= number_format($item['Ppreis'], 2, ',', '.') ?> €</p>
-                                <p>Gesamt: <?= number_format($item['Ppreis'], 2, ',', '.') ?> €</p>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
+            <?php $orderTotal = 0; ?>
+            <div style="margin-bottom: 24px;">
+                <div style="margin-bottom: 16px;">
+                    <h2>Bestellung #<?= $bid ?></h2>
+                    <p>Datum: <?= htmlspecialchars($order['Datum'] ?? '') ?></p>
                 </div>
-            </section>
-        <?php endforeach; ?>
-            <div class="bestellungsaktionen">
-                <button onclick="window.location.href='kaufen.php'">Weiter einkaufen</button>
-                <button onclick="window.location.href='warenkorb.php'">Zum Warenkorb</button>
+
+                <table class="warenkorb-tabelle">
+                    <thead>
+                        <tr>
+                            <th>Produkt</th>
+                            <th>Preis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($order['items'] as $item): ?>
+                            <?php $orderTotal += (float) $item['Ppreis']; ?>
+                            <tr>
+                                <td><?= htmlspecialchars($item['Pname'] ?? 'Unbekannt') ?></td>
+                                <td><?= number_format($item['Ppreis'], 2, ',', '.') ?> €</td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr class="warenkorb-gesamt">
+                            <td>Bestellsumme</td>
+                            <td><?= number_format($orderTotal, 2, ',', '.') ?> €</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        <?php endforeach; ?>
+
+        <div class="warenkorb-aktionen">
+            <button onclick="window.location.href='kaufen.php'">Weiter einkaufen</button>
+            <button onclick="window.location.href='warenkorb.php'">Zum Warenkorb</button>
+        </div>
     <?php endif; ?>
+</div>
 </div>
 <?php include 'footer.php'; ?>
 </body>
