@@ -24,10 +24,10 @@ $sql = "
         produkte.Ppreis
     FROM bestellungen
     JOIN warenkorb warenkorb ON bestellungen.WID = warenkorb.WID
-    JOIN warenkorbinhalt warenkorbinhalt ON warenkorb.WID = warenkorbinhalt.WID
-    JOIN produkte produkte ON warenkorbinhalt.PID = produkte.PID
+    LEFT JOIN warenkorbinhalt warenkorbinhalt ON warenkorb.WID = warenkorbinhalt.WID
+    LEFT JOIN produkte produkte ON warenkorbinhalt.PID = produkte.PID
     WHERE bestellungen.KID = ?
-    ORDER BY bestellungen.Datum DESC, bestellungen.BID DESC, produkte.Pname ASC
+    ORDER BY bestellungen.Datum DESC, bestellungen.BID DESC
 ";
 
 $stmt = $conn->prepare($sql);
@@ -74,13 +74,13 @@ while ($row = $result->fetch_assoc()) {
         <?php foreach ($orders as $bid => $order): ?>
             <section class="bestellung-block">
                 <h2>Bestellung #<?= $bid ?></h2>
-                <p>Datum: <?= htmlspecialchars($order['Datum']) ?></p>
+                <p>Datum: <?= htmlspecialchars($order['Datum'] ?? '') ?></p>
 
                 <div class="bestellartikel">
                     <?php foreach ($order['items'] as $item): ?>
                         <article class="bestellposition">
                             <div>
-                                <h3><?= htmlspecialchars($item['Pname']) ?></h3>
+                                <h3><?= htmlspecialchars($item['Pname'] ?? 'Unbekannt') ?></h3>
                                 <p>Preis: <?= number_format($item['Ppreis'], 2, ',', '.') ?> €</p>
                                 <p>Gesamt: <?= number_format($item['Ppreis'], 2, ',', '.') ?> €</p>
                             </div>
@@ -89,6 +89,10 @@ while ($row = $result->fetch_assoc()) {
                 </div>
             </section>
         <?php endforeach; ?>
+            <div class="bestellungsaktionen">
+                <button onclick="window.location.href='kaufen.php'">Weiter einkaufen</button>
+                <button onclick="window.location.href='warenkorb.php'">Zum Warenkorb</button>
+            </div>
     <?php endif; ?>
 </div>
 <?php include 'footer.php'; ?>
