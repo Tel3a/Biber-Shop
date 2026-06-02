@@ -64,7 +64,7 @@ if (!$istangemeldet && $_SERVER["REQUEST_METHOD"] == "POST") {
             }
             
             // Weiterleiten zur entsprechenden Seite
-            $redirectTarget = $_SESSION['post_login_redirect'] ?? 'index.php';
+            $redirectTarget = $_SESSION['post_login_redirect'] ?? 'login.php';
             unset($_SESSION['post_login_redirect']);
 
             header('Location: ' . $redirectTarget);
