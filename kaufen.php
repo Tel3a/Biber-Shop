@@ -13,35 +13,6 @@
 
 <div class="seiteninhalt">
 
-<!--
-<?php
-$products = [
-  ["name" => "T-Shirt", "category" => "shirts", "image" => "img/shirt1.jpg", "price" => "19,90 €"],
-  ["name" => "Sneaker", "category" => "shoes", "image" => "img/shoe1.jpg", "price" => "49,90 €"]
-];
-
-foreach ($products as $p) {
-  echo '<article class="product-boxen" data-category="'.$p["category"].'">';
-  echo '<a href="'.$p["image"].'" class="open-lightbox">';
-  echo '<img src="'.$p["image"].'" alt="'.$p["name"].'">';
-  echo '</a>';
-  echo '<h3>'.$p["name"].'</h3>';
-  echo '<p>'.$p["price"].'</p>';
-  echo '</article>';
-}
-?>
--->
-  </div>
-</section>
-
-<div class="lightbox" id="lightbox" hidden>
-  <button id="closeLightbox">×</button>
-  <img id="lightboxImg" src="" alt="">
-</div>
-
-
-
-
 <div id="produktgallerie"> 
     <?php 
         require 'db_config.php';
@@ -123,8 +94,8 @@ foreach ($products as $p) {
           <img src="<?= htmlspecialchars($row['Pbild']) ?>" alt="<?= htmlspecialchars($row['Pname']) ?>">
 
         <div class="produktinfo">
-            <h3><?= htmlspecialchars($row['Pname']) ?></h3>
-            <p><?= number_format((float)$row['Ppreis'], 2, ',', '.') ?> €</p>
+            <?= htmlspecialchars($row['Pname']) ?>
+            <div class="preis"><?= number_format((float)$row['Ppreis'], 2, ',', '.') ?> € </div>
         </div>
         </a>
         <form method="POST" action="pinwarenkorb.php">

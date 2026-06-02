@@ -132,7 +132,7 @@
                 <button type="submit" name="allebestellungen">Bisherige Bestellungen anzeigen</button>
             </form>
 
-            <button onclick="window.location.href='logout.php'">Abmelden</button>
+            <a href="login.php">Anmelden</a>
         </div>
     <?php else: ?>
         <h2>Hier sind deine Produkte:</h2>

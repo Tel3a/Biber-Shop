@@ -24,7 +24,7 @@
         <p>Adresse</p>
         <p>Biberstraße 1, 12345 Biberstadt</p>
     </div>
-
+    
     <div class="footerinhalt infos">
         <p>INFO</p><br>
         <p><a href="Wiederufsrecht.php">Widerrufsrecht</a></p>
@@ -33,7 +33,7 @@
         <p><a href="AGB.php">AGB</a></p>
     </div>
 
-    <div class="footer-copyright">
+    <div class="footerinhalt footer-copyright">
        <p>© 2026 Jamie-Lee Jones, Telsa Schaurer, Sophie Gorqaj</p>
     </div>
 </div>

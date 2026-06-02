@@ -21,7 +21,7 @@
 
 
  <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="javascript:void(0)" class="kreuz" onclick="closeNav()">&times;</a>
   <a href="kaufen.php">Zum Shop</a>
   <a href="ueberuns.php">Über uns</a>
 
