@@ -27,7 +27,6 @@
         }
         /*echo "connected" . "<br>";*/
 
-        // Prüfe ob Art-Spalte existiert, wenn nicht, erstelle sie
         $check_art = $conn->query("SHOW COLUMNS FROM produkte LIKE 'Art'");
         if ($check_art->num_rows == 0) {
             $conn->query("ALTER TABLE produkte ADD COLUMN Art VARCHAR(50) DEFAULT 'Sonstiges'");
@@ -37,6 +36,7 @@
                 "UPDATE produkte SET Art = 'Kleidung' WHERE PID IN (5,6,7)",
                 "UPDATE produkte SET Art = 'Lebensmittel' WHERE PID = 8",
                 "UPDATE produkte SET Art = 'Werkzeuge' WHERE PID = 9",
+                "UPDATE produkte SET Art = ' Produkte' WHERE PID = (1,2,3,4,5,6,7,8,9)",
                 "UPDATE produkte SET Art = 'Services' WHERE PID IN (101,102,103,104,105)"
             ];
             foreach ($categorize as $sql) {
@@ -44,7 +44,7 @@
             }
         }
 
-        // Hole Filter aus URL-Parameter
+        // Filter aus URL-Parameter
         $filter_art = isset($_GET['art']) ? $conn->real_escape_string($_GET['art']) : '';
         
         // SQL mit optionalem Filter
