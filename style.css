@@ -2,7 +2,7 @@ body {
     font-size: 20px;
 	font-family: Lexend Zetta;
 	margin: 0;
-	background-color: #FBFCF5;
+	background-color: #ffffff;
 	color: rgb(25, 25, 25);
 	min-height: 100vh;
 	display: flex;
@@ -36,7 +36,7 @@ format("opentype");
 
 /* HEADER */
 .header {
-    background-color: #FBFCF5;
+    background-color: #ffffff;
     text-align: right;
     border-bottom: 1px solid #c5c5c5;
     position: fixed;
@@ -52,7 +52,7 @@ format("opentype");
     align-items: center;
 }
 .header a:hover {
-    opacity: 0.6;
+    color: #a15151;
 }
 .menuoptionen {
     color: black;
@@ -348,7 +348,6 @@ p, h5 {
     height: auto;
     border-radius: 18px;
     object-fit: cover;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     background: #f3f3f3;
 }
 
@@ -533,46 +532,12 @@ p, h5 {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);	
 }
 
-/* Filter-Buttons Styling */
-.filter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 30px;
-    padding: 0 16px;
-    justify-content: center;
-}
-
-.filter-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 8px;
-    background: #f0f0f0;
-    color: #1c281a;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.filter-btn:hover {
-    background: #e0e0e0;
-    transform: translateY(-2px);
-}
-
-.filter-btn.active {
-    background: #7494e9;
-    color: #fff;
-    border-color: #5f7ed6;
-}
-
-
-
 .dankebiber {
     width: 100%;
+    max-width: 400px;
 }
+
+
 
 button {
     background-color: #000000;
@@ -623,4 +588,39 @@ button:hover {
 	margin-bottom: 20px;
 	transition: 0.5s;
     border: 2px solid #242424;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+    padding: 80px 20px 20px;
+
+    justify-content: left;
+}
+
+.filter-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #f0f0f0;
+    color: #1c281a;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.filter-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: #a15151;
+    color: #fff;
+    border-color: #a15151;
 }
