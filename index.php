@@ -40,7 +40,7 @@
     }
     ?>
 	</div>
-	<a class="zumShop" href="kaufen.php">Zum Shop</a>
+	<a class="zumShop dunklerbutton" href="kaufen.php">Zum Shop</a>
 
 	<br><br><br>
 	
