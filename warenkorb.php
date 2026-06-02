@@ -135,16 +135,9 @@
             <a href="login.php">Anmelden</a>
         </div>
     <?php else: ?>
-        <h2>Hier sind deine Produkte:</h2>
-
         <?php if ($warenkorb): ?>
             <table class="warenkorb-tabelle">
-                <tr>
-                    <th>Produkt</th>
-                    <th>Einzelpreis</th>
-                    <th>Menge</th>
-                    <th>Preis für Menge</th>
-                </tr>
+               
                 <?php foreach ($warenkorb as $id => $item):
                     $positionTotal = $item['Ppreis'] * $item['Menge'];
                     $gesamt += $positionTotal;
@@ -181,29 +174,20 @@
 
         <?php endif; ?>
 
-        <p><a href="kaufen.php">Weiter einkaufen</a></p>
+        
         <!-- macht das einen Unterschied?
             <p><a class="einkaufbutton" href="kaufen.php">Weiter einkaufen</a></p>
         -->
         <div class="warenkorb-aktionen">
-            <form method="POST" action="bestellen.php">
-                <button type="submit" name="bestellen">Bestellen (<?= number_format($gesamt, 2, ',', '.') ?> €)</button>
-            </form>
-
-
+            <div class="hellerbutton"> <a href="kaufen.php">Weiter einkaufen</a></div>
 
             <form method="POST" action="warenkorbleeren.php">
-                <button type="submit">Warenkorb leeren</button>
+                <button class="hellerbutton" type="submit">Warenkorb leeren</button>
             </form>
 
-            <form method="GET" action="allebestellungen.php">
-                <input type="hidden" name="WID" value="<?= $WID ?>">
-                <input type="hidden" name="KID" value="<?= $KID ?>">
-                <input type="hidden" name="gesamt" value="<?= $gesamt ?>">
-                <button type="submit" name="allebestellungen">Bisherige Bestellungen anzeigen</button>
+           <form method="POST" action="bestellen.php">
+                <button type="submit" name="bestellen">Bestellen (<?= number_format($gesamt, 2, ',', '.') ?> €)</button>
             </form>
-
-            <button onclick="window.location.href='logout.php'">Abmelden</button>
         </div>
     <?php endif; ?>
 </div>
