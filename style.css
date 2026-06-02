@@ -202,7 +202,9 @@ format("opentype");
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
-
+.zumShop:a {
+    background-color: #7494e9;
+}
 /* PRODUKTGALLERIE */
 #produktgallerie {
     display: grid;
@@ -261,7 +263,6 @@ format("opentype");
 #produktgallerie .boxen button {
     width: 100%;
     padding: 12px;
-    border: none;
     border-radius: 9px;
     border: 1px solid #242424;
     background: #000000;
@@ -275,6 +276,8 @@ format("opentype");
     background: #ffffff;
     color: #000000;
 }
+
+
 
 /*.lightbox {
   position: fixed;
@@ -313,38 +316,21 @@ input {
 	color: #333;
 	margin-bottom: 20px;
 }
-button {
-	width: 100%;
-	padding: 12px;
-	background: #7494e9;
-	border-radius: 6px;
-	border: none;
-	cursor: pointer;
-	font-size: 16px;
-	color: #fff;
-	font-weight: 500;
-	margin-bottom: 20px;
-	transition: 0.5s;
-}
-button:hover {
-	background: #6884d3
-}
+
 p, h5 {
 	font-size: 14.5px;
 	text-align: center;
 	margin-bottom: 10px;
 }
 p a {
-	color: #7494ec;
+	color: #000000;
 	text-decoration: none;
 }
 p a:hover {
 	text-decoration: underline;
 }
 
-h5 {
-	color: red;
-}
+
 span {
 	color: #7494ec;
 }
@@ -420,16 +406,13 @@ span {
     padding: 14px;
     border: none;
     border-radius: 12px;
-    background: #7494e9;
-    color: #fff;
+
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.2s ease;
 }
 
-.produktinfos button:hover {
-    background: #5f7ed6;
-}
+
 
 @media (max-width: 900px) {
     .produktdetails {
@@ -552,8 +535,7 @@ span {
     padding: 12px 18px;
     border: none;
     border-radius: 12px;
-    background: #7494e9;
-    color: #fff;
+
     text-decoration: none;
     cursor: pointer;
     font-size: 0.95rem;
@@ -562,7 +544,7 @@ span {
 
 .warenkorb-aktionen button:hover,
 .warenkorb-aktionen a.button-link:hover {
-    background: #5f7ed6;
+
     transform: translateY(-2px);
 }
 	
@@ -614,4 +596,24 @@ span {
 
 .dankebiber {
     width: 100%;
+}
+
+button {
+    background-color: #000000;
+    border-radius: 9px;
+    color: #fff;
+    width: 100%;
+	padding: 12px;
+	border-radius: 6px;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 500;
+	margin-bottom: 20px;
+	transition: 0.5s;
+}
+button:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #242424;
 }
