@@ -112,7 +112,7 @@ format("opentype");
 
 /* PFEIL */
 .pfeil {
-  	background: #B9D1B6;
+  	background: #a15151;
 	position: fixed;
 	display: inline-flex;
 	align-items: center;
@@ -132,7 +132,7 @@ format("opentype");
 
 /* FOOTER */
 #footer {
-    background-color: #211124;
+    background-color: #000000;
     color: #ffffff;
     border-top: 4px solid #000000;
     margin-top: auto;
