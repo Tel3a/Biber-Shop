@@ -10,7 +10,7 @@ body {
 }
 
 .seiteninhalt {
-	padding-top: 115px;
+	padding-top: 80px;
 	padding-bottom: 100px;
     padding-left: 30px;
     padding-right: 20px;
@@ -150,6 +150,7 @@ format("opentype");
     text-align: left;
     flex: 1 1 200px;         
     margin-right: 20px;
+    color: #fff
 }
 /*.footerinhalt p {
     margin: 0 0 8px 0;        
@@ -163,10 +164,11 @@ format("opentype");
 }
 
 .fotogallerie {
-  flex-wrap: wrap;
-  border-radius: 100px;
-  height: auto;
-  position: relative;
+    padding-top: 115px;
+    flex-wrap: wrap;
+    border-radius: 100px;
+    height: auto;
+    position: relative;
 }
 .galleriefoto {
 	width: 76%;
@@ -191,14 +193,13 @@ format("opentype");
 	width: 200px;
 	padding: 12px 12px;
 	border-radius: 12px;
-	background: #7494e9;
-	color: #fff;
+
 	font-size: 1rem;
 	text-align: center;
 	text-decoration: none;
 	z-index: 100;
 	position: absolute;
-	top: 50%;
+	top: 60%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
@@ -297,19 +298,14 @@ format("opentype");
 
 }
 .form-box {
-
   margin: 0 auto;
   padding: 30px;
-  background-color: #b9def1;
-  border: 1px solid #000000;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 input {
 	width: 100%;
 	padding: 12px;
-	background:#eee;
-	border-radius: 6px;
+
 	border: none;
 	outline: none;
 	font-size: 16px;
@@ -319,26 +315,11 @@ input {
 
 p, h5 {
 	font-size: 14.5px;
-	text-align: center;
 	margin-bottom: 10px;
 }
-p a {
-	color: #000000;
-	text-decoration: none;
-}
-p a:hover {
-	text-decoration: underline;
-}
 
 
-span {
-	color: #7494ec;
-}
-.box p{
-	font-size: 22px;
-	align-items: center;
 
-}
 .box button {
 	display: block;
 	width: 300px;
@@ -430,16 +411,11 @@ span {
     margin: 0 auto;
     padding: 30px 20px;
 }
-
-
 .warenkorb-kopf {
-    background: #fff;
-    border: 1px solid #e7e0d5;
-    border-radius: 18px;
+
     padding: 24px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
     margin-bottom: 24px;
-    text-align: center;
+
 	
 }
 
@@ -615,5 +591,36 @@ button {
 button:hover {
     background-color: #ffffff;
     color: #000000;
-    border: 1px solid #242424;
+    border: 2px solid #242424;
+}
+.dunklerbutton {
+    background-color: #000000;
+    border-radius: 9px;
+    color: #fff;
+}
+.dunklerbutton:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #242424;
+}
+.hellerbutton {
+    background-color: #ffffff;
+    border-radius: 9px;
+    color: #000;
+}
+.hellerbutton:hover {
+    background-color: #000;
+    color: #fff;
+}
+.wiebutton {
+    width: 100%;
+	padding: 12px;
+	border-radius: 6px;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 500;
+	margin-bottom: 20px;
+	transition: 0.5s;
+    border: 2px solid #242424;
 }
