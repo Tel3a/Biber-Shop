@@ -6,7 +6,8 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 session_start();
 
 if (!isset($_SESSION['KID'])) {
-    die("Bitte zuerst einloggen.");
+    header("Location: login.php");
+    exit();
 }
 
 require 'db_config.php';
