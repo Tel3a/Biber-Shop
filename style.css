@@ -624,3 +624,29 @@ button:hover {
     color: #fff;
     border-color: #a15151;
 }
+
+/*Button*/
+.filter-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #f0f0f0;
+    color: #1c281a;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.filter-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: #a15151;
+    color: #fff;
+    border-color: #a15151;
+}

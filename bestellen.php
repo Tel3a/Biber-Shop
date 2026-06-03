@@ -112,7 +112,8 @@ $conn->close();
 <div class="seiteninhalt">
 <div class="container">
     <?php if ($bestellungserfolgreich): ?>
-        <div class="erfolgsseite">
+        <br><br><br><br><br><br>
+        <div class="warenkorbseite">
             <img src="pfotos/dankebiber.png" alt="Danke Biber" class="dankebiber">
             <h1>✓ Bestellung erfolgreich!</h1>
             <div class="bestellungsdetails">
